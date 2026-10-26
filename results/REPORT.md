@@ -6,7 +6,7 @@ Emna Saada · October 2026
 
 ## Abstract
 
-Ichkeul's lake and marshes depend on a freshwater supply that upstream dams have cut since the 1980s. I built 20 seasonal Sentinel-2 composites (wet Jan–Mar and dry Jul–Sep, 2017–2026) over a 167 km² basin envelope and labelled eight habitat classes with weak labels from agreeing open datasets. On spatially held-out test chips (2017–2025, matched across models) the best model so far is Random Forest · AlphaEarth embeddings with mIoU 0.605 against weak labels, versus 0.514 for a Random Forest on spectral indices. The change analysis uses U-Net (ResNet-34, random init, CPU) (matched mIoU 0.574), the best model that can map all 20 seasons. **Open-water area follows rainfall**: season plus antecedent and previous-year rain explain R² = 0.91, and a time trend adds only 0.3 % (p = 0.462). **Summer marsh area fell by 18 %** between 2017–2019 and 2024–2026, and every classifier with full-area maps shows a decline (Random Forest · spectral indices: -0.96 km²/yr, p = 0.002; U-Net (ResNet-34, random init, CPU): -0.43 km²/yr, p = 0.074). Rainfall explains almost none of the marsh variation (unique R² 0.000 and 0.009), which points to non-climatic pressure (conversion at the marsh edge, grazing, reduced freshwater flushing). The trend is significant at p < 0.05 for 1 of 2 classifiers. A 40-year Landsat series (agreement with Sentinel-2: r = 0.99 over 10 seasons) puts 2017–2026 mean winter lake water at 91.9 km², below each earlier decade.
+Ichkeul's lake and marshes depend on a freshwater supply that upstream dams have cut since the 1980s. I built 20 seasonal Sentinel-2 composites (wet Jan–Mar and dry Jul–Sep, 2017–2026) over a 167 km² basin envelope and labelled eight habitat classes with weak labels from agreeing open datasets. On spatially held-out test chips (2017–2025, matched across models) the best model so far is Random Forest · AlphaEarth embeddings with mIoU 0.605 against weak labels, versus 0.517 for a Random Forest on spectral indices. The change analysis uses U-Net (ResNet-34, random init, CPU) (matched mIoU 0.574), the best model that can map all 20 seasons. **Open-water area follows rainfall**: season plus antecedent and previous-year rain explain R² = 0.91, and a time trend adds only 0.3 % (p = 0.462). **Summer marsh area fell by 18 %** between 2017–2019 and 2024–2026, and every classifier with full-area maps shows a decline (Random Forest · spectral indices: -0.96 km²/yr, p = 0.002; U-Net (ResNet-34, random init, CPU): -0.43 km²/yr, p = 0.074). Rainfall explains almost none of the marsh variation (unique R² 0.000 and 0.009), which points to non-climatic pressure (conversion at the marsh edge, grazing, reduced freshwater flushing). The trend is significant at p < 0.05 for 1 of 2 classifiers. A 40-year Landsat series (agreement with Sentinel-2: r = 0.99 over 10 seasons) puts 2017–2026 mean winter lake water at 91.9 km², below each earlier decade.
 
 ## 1. Questions
 
@@ -71,10 +71,15 @@ Antecedent rainfall is the Sep–Feb total before a wet composite and the Sep–
 | Random Forest · spectral indices | 10 % | 0.464 ± 0.009 | – | 89.0 % | 0.578 | 0.788 | 3 |
 | Random Forest · spectral indices | 25 % | 0.483 ± 0.006 | – | 89.7 % | 0.596 | 0.801 | 3 |
 | Random Forest · spectral indices | 50 % | 0.502 ± 0.003 | – | 90.7 % | 0.615 | 0.818 | 3 |
-| Random Forest · spectral indices | 100 % | 0.514 ± 0.000 | – | 91.3 % | 0.626 | 0.829 | 3 |
-| U-Net (ResNet-34, random init, CPU) | 100 % | 0.573 ± 0.000 | 0.574 | 95.5 % | 0.686 | 0.906 | 1 |
+| Random Forest · spectral indices | 100 % | 0.514 ± 0.000 | 0.517 | 91.3 % | 0.626 | 0.829 | 3 |
+| U-Net (ResNet-34, random init, CPU) | 5 % | 0.547 (1 seed) | 0.550 | 94.7 % | 0.660 | 0.888 | 1 |
+| U-Net (ResNet-34, random init, CPU) | 10 % | 0.579 (1 seed) | 0.580 | 95.7 % | 0.693 | 0.908 | 1 |
+| U-Net (ResNet-34, random init, CPU) | 25 % | 0.565 (1 seed) | 0.566 | 95.3 % | 0.679 | 0.900 | 1 |
+| U-Net (ResNet-34, random init, CPU) | 100 % | 0.573 (1 seed) | 0.574 | 95.5 % | 0.686 | 0.906 | 1 |
 
 AlphaEarth embeddings are published up to 2025, so that baseline is tested on 2017–2025 seasons only. The *matched* column scores every model on exactly those seasons, and it is the fair comparison across all baselines.
+
+U-Net (ResNet-34, random init, CPU): one seed per label fraction (CPU time), so differences between fractions of about ±0.02 mIoU are within run-to-run noise. The curve is flat from 10 % to 100 % of the training chips, so on these weak labels the U-Net saturates early.
 
 Per-class F1 at 100 % of training chips:
 
@@ -92,6 +97,8 @@ Per-class F1 at 100 % of training chips:
 > **Foundation-model runs pending.** The Prithvi-EO-2.0-300M and TerraMind-1.0-base experiments (and the ImageNet-initialised U-Net) are fully implemented in `kaggle/train_gpu.py` and smoke-tested end to end, but the processing environment had no GPU and could not reach Hugging Face. They run with `make gpu-upload gpu-push gpu-wait gpu-fetch`, then `make analysis web`. This report and the website update automatically. Until then, question 1 is answered for the CPU models only.
 
 Halophytic marsh and freshwater marsh are the hardest classes (RF F1 0.30 and 0.27). Water, cropland, woodland and built-up areas score high, as expected from their distinct spectra.
+
+The AlphaEarth embedding baseline is strongest on the marsh classes (F1 0.62 freshwater, 0.57 halophytic) but weakest on bare saline flats (0.59 versus 0.90 for the index forest). Its embedding is annual, so it cannot tell a flat that is flooded in winter from the same flat exposed in summer, which is the seasonal state this study is about. Only models that see each season's imagery can produce the 20 seasonal maps.
 
 Maps for the change analysis come from **U-Net (ResNet-34, random init, CPU)** (highest mean test mIoU at 100 % labels among models with full-area maps).
 

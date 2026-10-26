@@ -88,11 +88,15 @@ def build() -> str:
     w("| Model | Label share | mIoU (mean ± sd) | mIoU 2017–25 (matched) | Overall accuracy | Macro F1 | κ | Seeds |\n|---|---|---|---|---|---|---|---|")
     for r in sorted(mr["curves"], key=lambda r: (r["model"], r["fraction"])):
         mm = f"{r['miou_matched']:.3f}" if r.get("miou_matched") is not None else "–"
-        w(f"| {r['label']} | {r['fraction'] * 100:.0f} % | {r['miou_mean']:.3f} ± {r['miou_std']:.3f} | {mm} | {r['oa_mean'] * 100:.1f} % | "
+        w(f"| {r['label']} | {r['fraction'] * 100:.0f} % | {r['miou_mean']:.3f}{(' ± ' + format(r['miou_std'], '.3f')) if r['n'] > 1 else ' (1 seed)'} | {mm} | {r['oa_mean'] * 100:.1f} % | "
           f"{r['f1_mean']:.3f} | {r['kappa_mean']:.3f} | {r['n']} |")
     w("")
     w("AlphaEarth embeddings are published up to 2025, so that baseline is tested on 2017–2025 seasons only. The *matched* column scores "
       "every model on exactly those seasons, and it is the fair comparison across all baselines.\n")
+    single = sorted({r["label"] for r in mr["curves"] if r["n"] == 1})
+    if single:
+        w(f"{', '.join(single)}: one seed per label fraction (CPU time), so differences between fractions of about ±0.02 mIoU are within "
+          "run-to-run noise. The curve is flat from 10 % to 100 % of the training chips, so on these weak labels the U-Net saturates early.\n")
     w("Per-class F1 at 100 % of training chips:\n")
     w("| Class | " + " | ".join(r["label"] for r in full) + " |\n|---|" + "---|" * len(full))
     for i, c in enumerate(classes):
@@ -106,6 +110,13 @@ def build() -> str:
     if rf:
         w(f"Halophytic marsh and freshwater marsh are the hardest classes (RF F1 {rf['per_class_f1'][3]:.2f} and {rf['per_class_f1'][2]:.2f}). "
           "Water, cropland, woodland and built-up areas score high, as expected from their distinct spectra.\n")
+    ae = next((r for r in full if r["model"] == "rf_alphaearth"), None)
+    if ae and rf and ae["per_class_f1"][4] < rf["per_class_f1"][4]:
+        w(f"The AlphaEarth embedding baseline is strongest on the marsh classes (F1 {ae['per_class_f1'][2]:.2f} freshwater, "
+          f"{ae['per_class_f1'][3]:.2f} halophytic) but weakest on bare saline flats ({ae['per_class_f1'][4]:.2f} versus "
+          f"{rf['per_class_f1'][4]:.2f} for the index forest). Its embedding is annual, so it cannot tell a flat that is flooded in winter "
+          "from the same flat exposed in summer, which is the seasonal state this study is about. Only models that see each season's "
+          "imagery can produce the 20 seasonal maps.\n")
     if comp:
         w(f"Maps for the change analysis come from **{MODEL_LABEL.get(comp['map_model'], comp['map_model'])}** (highest mean test mIoU at 100 % labels among models with full-area maps).\n")
     else:

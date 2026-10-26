@@ -40,8 +40,8 @@ PERSIANN-CDR rainfall ──► OLS unique R², gradient boosting + SHAP      La
 | Model | mIoU (all test seasons) | mIoU 2017–25 (matched) | Overall accuracy | Macro F1 | Seeds |
 |---|---|---|---|---|---|
 | Random Forest · AlphaEarth embeddings | 0.605 ± 0.000 | 0.605 | 96.9 % | 0.728 | 3 |
-| U-Net (ResNet-34, random init, CPU) | 0.573 ± 0.000 | 0.574 | 95.5 % | 0.686 | 1 |
-| Random Forest · spectral indices | 0.514 ± 0.000 | – | 91.3 % | 0.626 | 3 |
+| U-Net (ResNet-34, random init, CPU) | 0.573 (1 seed) | 0.574 | 95.5 % | 0.686 | 1 |
+| Random Forest · spectral indices | 0.514 ± 0.000 | 0.517 | 91.3 % | 0.626 | 3 |
 
 
 

@@ -14,7 +14,7 @@ def build():
     hl = "| | Key results |\n|---|---|\n" + cards + "\n\n![Hero](docs/img/hero.jpg)\n"
     m = s["models"]
     mm = lambda r: f"{r['miou_matched']:.3f}" if r.get("miou_matched") is not None else "–"  # noqa: E731
-    rows = "\n".join(f"| {r['label']} | {r['miou_mean']:.3f} ± {r['miou_std']:.3f} | {mm(r)} | {r['oa_mean'] * 100:.1f} % | {r['f1_mean']:.3f} | {r['n']} |"
+    rows = "\n".join(f"| {r['label']} | {r['miou_mean']:.3f}{(' ± ' + format(r['miou_std'], '.3f')) if r['n'] > 1 else ' (1 seed)'} | {mm(r)} | {r['oa_mean'] * 100:.1f} % | {r['f1_mean']:.3f} | {r['n']} |"
                      for r in sorted(m["rows"], key=lambda r: -r["miou_mean"]))
     rob = s["robustness"]
     from .export import MODEL_LABEL

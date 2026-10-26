@@ -449,7 +449,7 @@ function lab(site: Site) {
   });
   const full = [...M.rows].sort((a, b) => b.miou_mean - a.miou_mean);
   $("model-table").innerHTML = `<tr><th>Model</th><th class="r">mIoU</th><th class="r">mIoU 2017–25<br>(matched)</th><th class="r">Overall acc.</th><th class="r">Macro F1</th><th class="r">κ</th><th class="r">Seeds</th></tr>` +
-    full.map((r) => `<tr class="${r.model === M.best ? "best" : ""}"><td>${r.label}</td><td class="r">${fmt(r.miou_mean, 3)} ± ${fmt(r.miou_std, 3)}</td><td class="r">${fmt((r as any).miou_matched, 3)}</td>
+    full.map((r) => `<tr class="${r.model === M.best ? "best" : ""}"><td>${r.label}</td><td class="r">${fmt(r.miou_mean, 3)}${r.n > 1 ? ` ± ${fmt(r.miou_std, 3)}` : ` <span class="small muted">(1 seed)</span>`}</td><td class="r">${fmt((r as any).miou_matched, 3)}</td>
       <td class="r">${fmt(r.oa_mean * 100, 1)} %</td><td class="r">${fmt(r.f1_mean, 3)}</td><td class="r">${fmt(r.kappa_mean, 3)}</td><td class="r">${r.n}</td></tr>`).join("");
   $("model-note").innerHTML = (M.gpu_pending
     ? "GPU runs (U-Net, Prithvi-EO-2.0, TerraMind) are queued on a Kaggle T4. Rows appear here as soon as their results are added to <span class=\"mono\">results/gpu/</span>. "
