@@ -1,0 +1,19 @@
+{
+ "map_model": "unet_cpu",
+ "rule": [
+  "The choice is the model with the highest mean test mIoU at 100 % of training chips,",
+  "among models that produced full-area maps for all 20 seasons."
+ ],
+ "ranking": [
+  {
+   "model": "unet_cpu",
+   "miou_mean": 0.5725943265833914,
+   "miou_std": 0.0
+  },
+  {
+   "model": "rf_indices",
+   "miou_mean": 0.5138408840625274,
+   "miou_std": 4.791782288169814e-05
+  }
+ ]
+}

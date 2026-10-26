@@ -1,0 +1,3029 @@
+{
+ "model": "unet_cpu",
+ "basin_area_km2": 167.30180000000001,
+ "areas_basin": [
+  {
+   "year": 2017,
+   "season": "wet",
+   "perm_water": 72.5752,
+   "seas_water": 19.6717,
+   "fresh_marsh": 9.5566,
+   "halo_marsh": 3.2574,
+   "saline_flat": 0.1188,
+   "crop_grass": 50.0594,
+   "shrub_wood": 10.0626,
+   "built": 2.0001
+  },
+  {
+   "year": 2017,
+   "season": "dry",
+   "perm_water": 59.4284,
+   "seas_water": 9.3149,
+   "fresh_marsh": 5.9034,
+   "halo_marsh": 6.034,
+   "saline_flat": 19.6956,
+   "crop_grass": 56.1351,
+   "shrub_wood": 8.35,
+   "built": 2.4404
+  },
+  {
+   "year": 2018,
+   "season": "wet",
+   "perm_water": 79.6822,
+   "seas_water": 13.4419,
+   "fresh_marsh": 10.4539,
+   "halo_marsh": 1.2369,
+   "saline_flat": 0.0646,
+   "crop_grass": 48.562,
+   "shrub_wood": 11.4897,
+   "built": 2.3706
+  },
+  {
+   "year": 2018,
+   "season": "dry",
+   "perm_water": 74.3848,
+   "seas_water": 5.9041,
+   "fresh_marsh": 3.8201,
+   "halo_marsh": 5.1498,
+   "saline_flat": 9.8849,
+   "crop_grass": 57.0805,
+   "shrub_wood": 9.0908,
+   "built": 1.9868
+  },
+  {
+   "year": 2019,
+   "season": "wet",
+   "perm_water": 85.8636,
+   "seas_water": 11.4333,
+   "fresh_marsh": 9.0379,
+   "halo_marsh": 2.1802,
+   "saline_flat": 0.0601,
+   "crop_grass": 44.0189,
+   "shrub_wood": 12.2029,
+   "built": 2.5049
+  },
+  {
+   "year": 2019,
+   "season": "dry",
+   "perm_water": 75.0709,
+   "seas_water": 7.4959,
+   "fresh_marsh": 6.2443,
+   "halo_marsh": 3.6965,
+   "saline_flat": 7.666,
+   "crop_grass": 53.546,
+   "shrub_wood": 11.4566,
+   "built": 2.1256
+  },
+  {
+   "year": 2020,
+   "season": "wet",
+   "perm_water": 79.0644,
+   "seas_water": 11.7483,
+   "fresh_marsh": 8.4865,
+   "halo_marsh": 2.8431,
+   "saline_flat": 0.1172,
+   "crop_grass": 50.0455,
+   "shrub_wood": 12.7471,
+   "built": 2.2497
+  },
+  {
+   "year": 2020,
+   "season": "dry",
+   "perm_water": 68.8154,
+   "seas_water": 8.0538,
+   "fresh_marsh": 6.6339,
+   "halo_marsh": 5.272,
+   "saline_flat": 12.5078,
+   "crop_grass": 53.4798,
+   "shrub_wood": 10.3187,
+   "built": 2.2204
+  },
+  {
+   "year": 2021,
+   "season": "wet",
+   "perm_water": 75.7885,
+   "seas_water": 14.8128,
+   "fresh_marsh": 9.7407,
+   "halo_marsh": 3.8888,
+   "saline_flat": 0.2717,
+   "crop_grass": 48.7664,
+   "shrub_wood": 11.8476,
+   "built": 2.1853
+  },
+  {
+   "year": 2021,
+   "season": "dry",
+   "perm_water": 66.4512,
+   "seas_water": 7.7363,
+   "fresh_marsh": 7.5491,
+   "halo_marsh": 4.4312,
+   "saline_flat": 15.8357,
+   "crop_grass": 57.5039,
+   "shrub_wood": 5.8703,
+   "built": 1.9241
+  },
+  {
+   "year": 2022,
+   "season": "wet",
+   "perm_water": 78.7392,
+   "seas_water": 13.284,
+   "fresh_marsh": 9.989,
+   "halo_marsh": 2.7399,
+   "saline_flat": 0.0925,
+   "crop_grass": 48.7795,
+   "shrub_wood": 11.3716,
+   "built": 2.3061
+  },
+  {
+   "year": 2022,
+   "season": "dry",
+   "perm_water": 65.9898,
+   "seas_water": 7.8964,
+   "fresh_marsh": 5.6962,
+   "halo_marsh": 4.7797,
+   "saline_flat": 16.9746,
+   "crop_grass": 55.1562,
+   "shrub_wood": 8.824,
+   "built": 1.9849
+  },
+  {
+   "year": 2023,
+   "season": "wet",
+   "perm_water": 70.1746,
+   "seas_water": 16.0712,
+   "fresh_marsh": 6.8141,
+   "halo_marsh": 4.0878,
+   "saline_flat": 3.3337,
+   "crop_grass": 52.0305,
+   "shrub_wood": 12.591,
+   "built": 2.1989
+  },
+  {
+   "year": 2023,
+   "season": "dry",
+   "perm_water": 68.4528,
+   "seas_water": 5.2949,
+   "fresh_marsh": 4.6755,
+   "halo_marsh": 5.3715,
+   "saline_flat": 15.9729,
+   "crop_grass": 56.5897,
+   "shrub_wood": 8.9341,
+   "built": 2.0104
+  },
+  {
+   "year": 2024,
+   "season": "wet",
+   "perm_water": 74.3852,
+   "seas_water": 13.6757,
+   "fresh_marsh": 7.1746,
+   "halo_marsh": 2.923,
+   "saline_flat": 1.3476,
+   "crop_grass": 55.307,
+   "shrub_wood": 10.4019,
+   "built": 2.0868
+  },
+  {
+   "year": 2024,
+   "season": "dry",
+   "perm_water": 64.2512,
+   "seas_water": 7.67,
+   "fresh_marsh": 4.8307,
+   "halo_marsh": 4.5555,
+   "saline_flat": 17.4404,
+   "crop_grass": 58.0055,
+   "shrub_wood": 8.4085,
+   "built": 2.14
+  },
+  {
+   "year": 2025,
+   "season": "wet",
+   "perm_water": 67.9614,
+   "seas_water": 20.2758,
+   "fresh_marsh": 11.9496,
+   "halo_marsh": 3.1258,
+   "saline_flat": 0.6071,
+   "crop_grass": 50.0273,
+   "shrub_wood": 11.4093,
+   "built": 1.9455
+  },
+  {
+   "year": 2025,
+   "season": "dry",
+   "perm_water": 66.3624,
+   "seas_water": 8.8435,
+   "fresh_marsh": 4.1368,
+   "halo_marsh": 3.8381,
+   "saline_flat": 14.8156,
+   "crop_grass": 57.6404,
+   "shrub_wood": 9.6285,
+   "built": 2.0365
+  },
+  {
+   "year": 2026,
+   "season": "wet",
+   "perm_water": 76.9742,
+   "seas_water": 24.0498,
+   "fresh_marsh": 7.2963,
+   "halo_marsh": 2.5354,
+   "saline_flat": 0.0774,
+   "crop_grass": 43.6359,
+   "shrub_wood": 10.6993,
+   "built": 2.0335
+  },
+  {
+   "year": 2026,
+   "season": "dry",
+   "perm_water": 73.5368,
+   "seas_water": 6.2179,
+   "fresh_marsh": 2.6908,
+   "halo_marsh": 5.2111,
+   "saline_flat": 12.122,
+   "crop_grass": 56.5291,
+   "shrub_wood": 8.988,
+   "built": 2.0061
+  }
+ ],
+ "areas_aoi": [
+  {
+   "year": 2017,
+   "season": "wet",
+   "perm_water": 75.8943,
+   "seas_water": 22.2968,
+   "fresh_marsh": 12.6899,
+   "halo_marsh": 5.1933,
+   "saline_flat": 0.2134,
+   "crop_grass": 239.792,
+   "shrub_wood": 33.3745,
+   "built": 11.9538
+  },
+  {
+   "year": 2017,
+   "season": "dry",
+   "perm_water": 63.4757,
+   "seas_water": 10.0004,
+   "fresh_marsh": 6.5126,
+   "halo_marsh": 7.4974,
+   "saline_flat": 20.9749,
+   "crop_grass": 250.9465,
+   "shrub_wood": 28.6848,
+   "built": 13.3157
+  },
+  {
+   "year": 2018,
+   "season": "wet",
+   "perm_water": 84.1768,
+   "seas_water": 15.9049,
+   "fresh_marsh": 12.904,
+   "halo_marsh": 2.3191,
+   "saline_flat": 0.1853,
+   "crop_grass": 234.3499,
+   "shrub_wood": 37.7052,
+   "built": 13.8628
+  },
+  {
+   "year": 2018,
+   "season": "dry",
+   "perm_water": 78.5077,
+   "seas_water": 6.3934,
+   "fresh_marsh": 4.578,
+   "halo_marsh": 6.9238,
+   "saline_flat": 11.5766,
+   "crop_grass": 250.6482,
+   "shrub_wood": 30.7799,
+   "built": 12.0004
+  },
+  {
+   "year": 2019,
+   "season": "wet",
+   "perm_water": 89.6752,
+   "seas_water": 12.8944,
+   "fresh_marsh": 11.3708,
+   "halo_marsh": 4.4674,
+   "saline_flat": 0.6036,
+   "crop_grass": 230.1985,
+   "shrub_wood": 37.3937,
+   "built": 14.8044
+  },
+  {
+   "year": 2019,
+   "season": "dry",
+   "perm_water": 79.066,
+   "seas_water": 8.1214,
+   "fresh_marsh": 7.2808,
+   "halo_marsh": 4.918,
+   "saline_flat": 8.8416,
+   "crop_grass": 243.3855,
+   "shrub_wood": 37.4504,
+   "built": 12.3443
+  },
+  {
+   "year": 2020,
+   "season": "wet",
+   "perm_water": 82.7139,
+   "seas_water": 13.2128,
+   "fresh_marsh": 10.8456,
+   "halo_marsh": 4.9737,
+   "saline_flat": 0.5228,
+   "crop_grass": 233.0166,
+   "shrub_wood": 43.2525,
+   "built": 12.8701
+  },
+  {
+   "year": 2020,
+   "season": "dry",
+   "perm_water": 72.9376,
+   "seas_water": 8.6543,
+   "fresh_marsh": 7.5485,
+   "halo_marsh": 6.5957,
+   "saline_flat": 13.524,
+   "crop_grass": 244.6708,
+   "shrub_wood": 34.6156,
+   "built": 12.8615
+  },
+  {
+   "year": 2021,
+   "season": "wet",
+   "perm_water": 79.8156,
+   "seas_water": 16.973,
+   "fresh_marsh": 12.1593,
+   "halo_marsh": 5.4832,
+   "saline_flat": 0.4273,
+   "crop_grass": 235.9692,
+   "shrub_wood": 37.5564,
+   "built": 13.024
+  },
+  {
+   "year": 2021,
+   "season": "dry",
+   "perm_water": 70.0263,
+   "seas_water": 8.6156,
+   "fresh_marsh": 8.4335,
+   "halo_marsh": 6.1315,
+   "saline_flat": 16.8103,
+   "crop_grass": 254.6212,
+   "shrub_wood": 25.1908,
+   "built": 11.5788
+  },
+  {
+   "year": 2022,
+   "season": "wet",
+   "perm_water": 82.5766,
+   "seas_water": 15.0399,
+   "fresh_marsh": 12.6977,
+   "halo_marsh": 4.6048,
+   "saline_flat": 0.4658,
+   "crop_grass": 230.3309,
+   "shrub_wood": 41.8043,
+   "built": 13.888
+  },
+  {
+   "year": 2022,
+   "season": "dry",
+   "perm_water": 69.9022,
+   "seas_water": 8.5938,
+   "fresh_marsh": 6.4504,
+   "halo_marsh": 6.3045,
+   "saline_flat": 18.7535,
+   "crop_grass": 250.7179,
+   "shrub_wood": 28.4311,
+   "built": 12.2546
+  },
+  {
+   "year": 2023,
+   "season": "wet",
+   "perm_water": 73.4416,
+   "seas_water": 18.5231,
+   "fresh_marsh": 9.1605,
+   "halo_marsh": 6.2284,
+   "saline_flat": 3.9782,
+   "crop_grass": 231.4487,
+   "shrub_wood": 45.0905,
+   "built": 13.537
+  },
+  {
+   "year": 2023,
+   "season": "dry",
+   "perm_water": 72.5935,
+   "seas_water": 6.2576,
+   "fresh_marsh": 5.6657,
+   "halo_marsh": 7.5019,
+   "saline_flat": 17.5701,
+   "crop_grass": 248.2131,
+   "shrub_wood": 31.3097,
+   "built": 12.2964
+  },
+  {
+   "year": 2024,
+   "season": "wet",
+   "perm_water": 78.8323,
+   "seas_water": 15.5509,
+   "fresh_marsh": 8.6221,
+   "halo_marsh": 4.7918,
+   "saline_flat": 1.9759,
+   "crop_grass": 249.2695,
+   "shrub_wood": 29.1319,
+   "built": 13.2336
+  },
+  {
+   "year": 2024,
+   "season": "dry",
+   "perm_water": 68.7604,
+   "seas_water": 8.4995,
+   "fresh_marsh": 5.8167,
+   "halo_marsh": 6.2051,
+   "saline_flat": 18.3225,
+   "crop_grass": 253.0951,
+   "shrub_wood": 28.1491,
+   "built": 12.5596
+  },
+  {
+   "year": 2025,
+   "season": "wet",
+   "perm_water": 71.7206,
+   "seas_water": 23.0868,
+   "fresh_marsh": 16.4352,
+   "halo_marsh": 4.4562,
+   "saline_flat": 0.7018,
+   "crop_grass": 228.9974,
+   "shrub_wood": 43.9392,
+   "built": 12.0708
+  },
+  {
+   "year": 2025,
+   "season": "dry",
+   "perm_water": 70.9162,
+   "seas_water": 9.704,
+   "fresh_marsh": 5.2836,
+   "halo_marsh": 5.7417,
+   "saline_flat": 16.2796,
+   "crop_grass": 249.1737,
+   "shrub_wood": 31.9585,
+   "built": 12.3507
+  },
+  {
+   "year": 2026,
+   "season": "wet",
+   "perm_water": 81.0355,
+   "seas_water": 27.4397,
+   "fresh_marsh": 9.4182,
+   "halo_marsh": 4.2477,
+   "saline_flat": 0.5462,
+   "crop_grass": 237.1364,
+   "shrub_wood": 28.8935,
+   "built": 12.6908
+  },
+  {
+   "year": 2026,
+   "season": "dry",
+   "perm_water": 78.2183,
+   "seas_water": 7.2567,
+   "fresh_marsh": 3.7762,
+   "halo_marsh": 7.2258,
+   "saline_flat": 13.2006,
+   "crop_grass": 249.5945,
+   "shrub_wood": 30.0043,
+   "built": 12.1316
+  }
+ ],
+ "trends": {
+  "wet": {
+   "perm_water": {
+    "n": 10,
+    "S": -17.0,
+    "tau": -0.37777777777777777,
+    "z": -1.4310835055998654,
+    "p": 0.15240628395674927,
+    "sen_slope": -0.5767249999999997,
+    "slope_ci95": [
+     -2.2956800000000017,
+     0.48877777777777787
+    ],
+    "intercept": 1242.5949249999994,
+    "trend": "no significant trend"
+   },
+   "seas_water": {
+    "n": 10,
+    "S": 19.0,
+    "tau": 0.4222222222222222,
+    "z": 1.6099689437998486,
+    "p": 0.10740463633025366,
+    "sen_slope": 0.6169000000000006,
+    "slope_ci95": [
+     -0.37903333333333283,
+     1.8023571428571432
+    ],
+    "intercept": -1231.929800000001,
+    "trend": "no significant trend"
+   },
+   "fresh_marsh": {
+    "n": 10,
+    "S": -7.0,
+    "tau": -0.15555555555555556,
+    "z": -0.5366563145999494,
+    "p": 0.5915050369949166,
+    "sen_slope": -0.24880000000000013,
+    "slope_ci95": [
+     -0.551400000000001,
+     0.31703333333333344
+    ],
+    "intercept": 511.3756500000003,
+    "trend": "no significant trend"
+   },
+   "halo_marsh": {
+    "n": 10,
+    "S": 7.0,
+    "tau": 0.15555555555555556,
+    "z": 0.5366563145999494,
+    "p": 0.5915050369949166,
+    "sen_slope": 0.09155000000000002,
+    "slope_ci95": [
+     -0.13809999999999997,
+     0.28101666666666664
+    ],
+    "intercept": -182.31857500000004,
+    "trend": "no significant trend"
+   },
+   "saline_flat": {
+    "n": 10,
+    "S": 11.0,
+    "tau": 0.24444444444444444,
+    "z": 0.8944271909999159,
+    "p": 0.37109336952269745,
+    "sen_slope": 0.038224999999999995,
+    "slope_ci95": [
+     -0.006633333333333334,
+     0.17554285714285714
+    ],
+    "intercept": -77.0272375,
+    "trend": "no significant trend"
+   },
+   "crop_grass": {
+    "n": 10,
+    "S": 3.0,
+    "tau": 0.06666666666666667,
+    "z": 0.17888543819998318,
+    "p": 0.8580276569875211,
+    "sen_slope": 0.054375000000000284,
+    "slope_ci95": [
+     -1.0016000000000034,
+     1.1241666666666674
+    ],
+    "intercept": -60.60377500000057,
+    "trend": "no significant trend"
+   },
+   "shrub_wood": {
+    "n": 10,
+    "S": -5.0,
+    "tau": -0.1111111111111111,
+    "z": -0.35777087639996635,
+    "p": 0.7205147871362552,
+    "sen_slope": -0.05203333333333345,
+    "slope_ci95": [
+     -0.3413000000000001,
+     0.2618000000000002
+    ],
+    "intercept": 116.67990000000023,
+    "trend": "no significant trend"
+   },
+   "built": {
+    "n": 10,
+    "S": -19.0,
+    "tau": -0.4222222222222222,
+    "z": -1.6099689437998486,
+    "p": 0.10740463633025366,
+    "sen_slope": -0.042137499999999994,
+    "slope_ci95": [
+     -0.06814999999999993,
+     0.006800000000000139
+    ],
+    "intercept": 87.38858749999999,
+    "trend": "no significant trend"
+   },
+   "open_water": {
+    "n": 10,
+    "S": -11.0,
+    "tau": -0.24444444444444444,
+    "z": -0.8944271909999159,
+    "p": 0.37109336952269745,
+    "sen_slope": -0.5012124999999994,
+    "slope_ci95": [
+     -1.2620000000000005,
+     0.9874875000000003
+    ],
+    "intercept": 1103.4068562499988,
+    "trend": "no significant trend"
+   },
+   "marsh": {
+    "n": 10,
+    "S": -13.0,
+    "tau": -0.28888888888888886,
+    "z": -1.073312629199899,
+    "p": 0.28313087066234655,
+    "sen_slope": -0.19805714285714288,
+    "slope_ci95": [
+     -0.4948000000000003,
+     0.361475
+    ],
+    "intercept": 411.4882642857143,
+    "trend": "no significant trend"
+   }
+  },
+  "dry": {
+   "perm_water": {
+    "n": 10,
+    "S": -5.0,
+    "tau": -0.1111111111111111,
+    "z": -0.35777087639996635,
+    "p": 0.7205147871362552,
+    "sen_slope": -0.12086666666666683,
+    "slope_ci95": [
+     -1.4514166666666668,
+     1.5040666666666656
+    ],
+    "intercept": 312.04173333333364,
+    "trend": "no significant trend"
+   },
+   "seas_water": {
+    "n": 10,
+    "S": -5.0,
+    "tau": -0.1111111111111111,
+    "z": -0.35777087639996635,
+    "p": 0.7205147871362552,
+    "sen_slope": -0.07870000000000044,
+    "slope_ci95": [
+     -0.39464999999999995,
+     0.2943166666666667
+    ],
+    "intercept": 166.87390000000087,
+    "trend": "no significant trend"
+   },
+   "fresh_marsh": {
+    "n": 10,
+    "S": -17.0,
+    "tau": -0.37777777777777777,
+    "z": -1.4310835055998654,
+    "p": 0.15240628395674927,
+    "sen_slope": -0.35125,
+    "slope_ci95": [
+     -0.6615666666666669,
+     0.16843333333333335
+    ],
+    "intercept": 715.41805,
+    "trend": "no significant trend"
+   },
+   "halo_marsh": {
+    "n": 10,
+    "S": -7.0,
+    "tau": -0.15555555555555556,
+    "z": -0.5366563145999494,
+    "p": 0.5915050369949166,
+    "sen_slope": -0.09252499999999997,
+    "slope_ci95": [
+     -0.25399999999999984,
+     0.1559800000000001
+    ],
+    "intercept": 191.86524999999995,
+    "trend": "no significant trend"
+   },
+   "saline_flat": {
+    "n": 10,
+    "S": 3.0,
+    "tau": 0.06666666666666667,
+    "z": 0.17888543819998318,
+    "p": 0.8580276569875211,
+    "sen_slope": 0.23290000000000077,
+    "slope_ci95": [
+     -0.841511111111111,
+     1.25925
+    ],
+    "intercept": -455.99535000000157,
+    "trend": "no significant trend"
+   },
+   "crop_grass": {
+    "n": 10,
+    "S": 13.0,
+    "tau": 0.28888888888888886,
+    "z": 1.073312629199899,
+    "p": 0.28313087066234655,
+    "sen_slope": 0.16719999999999877,
+    "slope_ci95": [
+     -0.19496000000000038,
+     0.8280666666666671
+    ],
+    "intercept": -281.38159999999755,
+    "trend": "no significant trend"
+   },
+   "shrub_wood": {
+    "n": 10,
+    "S": 1.0,
+    "tau": 0.022222222222222223,
+    "z": 0.0,
+    "p": 1.0,
+    "sen_slope": 0.00835714285714292,
+    "slope_ci95": [
+     -0.4775499999999999,
+     0.34719999999999995
+    ],
+    "intercept": -7.957985714285844,
+    "trend": "no significant trend"
+   },
+   "built": {
+    "n": 10,
+    "S": -7.0,
+    "tau": -0.15555555555555556,
+    "z": -0.5366563145999494,
+    "p": 0.5915050369949166,
+    "sen_slope": -0.017071428571428564,
+    "slope_ci95": [
+     -0.06695000000000007,
+     0.01720000000000003
+    ],
+    "intercept": 36.59281428571427,
+    "trend": "no significant trend"
+   },
+   "open_water": {
+    "n": 10,
+    "S": -5.0,
+    "tau": -0.1111111111111111,
+    "z": -0.35777087639996635,
+    "p": 0.7205147871362552,
+    "sen_slope": -0.21990000000000265,
+    "slope_ci95": [
+     -1.3946166666666666,
+     1.11344
+    ],
+    "intercept": 519.5544000000054,
+    "trend": "no significant trend"
+   },
+   "marsh": {
+    "n": 10,
+    "S": -21.0,
+    "tau": -0.4666666666666667,
+    "z": -1.7888543819998317,
+    "p": 0.07363827012030266,
+    "sen_slope": -0.4288999999999987,
+    "slope_ci95": [
+     -0.7421500000000005,
+     0.010724999999999874
+    ],
+    "intercept": 877.2542499999975,
+    "trend": "no significant trend"
+   }
+  }
+ },
+ "transitions": {
+  "wet": {
+   "from_years": [
+    2017,
+    2018,
+    2019
+   ],
+   "to_years": [
+    2024,
+    2025,
+    2026
+   ],
+   "matrix_km2": [
+    [
+     72.8744,
+     6.776,
+     0.0941,
+     0.0942,
+     0.0157,
+     0.0039,
+     0.0294,
+     0.0
+    ],
+    [
+     0.1957,
+     10.2946,
+     1.7179,
+     1.3887,
+     0.4915,
+     0.1436,
+     0.026,
+     0.0012
+    ],
+    [
+     0.042,
+     1.6186,
+     4.9722,
+     0.2018,
+     0.0005,
+     3.1719,
+     0.1393,
+     0.0036
+    ],
+    [
+     0.0005,
+     0.2088,
+     0.5309,
+     0.2222,
+     0.0067,
+     0.248,
+     0.0296,
+     0.002
+    ],
+    [
+     0.0,
+     0.0045,
+     0.0022,
+     0.0084,
+     0.0012,
+     0.0068,
+     0.004,
+     0.0038
+    ],
+    [
+     0.0024,
+     0.3498,
+     1.1519,
+     0.1907,
+     0.0076,
+     46.4684,
+     0.1372,
+     0.1328
+    ],
+    [
+     0.0012,
+     0.0016,
+     0.0713,
+     0.0119,
+     0.0012,
+     0.9613,
+     9.992,
+     0.0283
+    ],
+    [
+     0.0,
+     0.0009,
+     0.003,
+     0.0011,
+     0.0003,
+     0.3991,
+     0.0368,
+     1.7746
+    ]
+   ]
+  },
+  "dry": {
+   "from_years": [
+    2017,
+    2018,
+    2019
+   ],
+   "to_years": [
+    2024,
+    2025,
+    2026
+   ],
+   "matrix_km2": [
+    [
+     68.7002,
+     4.9313,
+     0.0001,
+     0.0017,
+     1.5718,
+     0.0004,
+     0.0002,
+     0.0
+    ],
+    [
+     0.1696,
+     1.4024,
+     0.0009,
+     0.0517,
+     3.7274,
+     0.0005,
+     0.0027,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     2.596,
+     0.6553,
+     0.0668,
+     1.2428,
+     0.0532,
+     0.0008
+    ],
+    [
+     0.0,
+     0.0005,
+     0.7003,
+     2.4907,
+     0.4697,
+     0.63,
+     0.0144,
+     0.0005
+    ],
+    [
+     0.0,
+     0.0329,
+     0.0484,
+     0.8053,
+     8.771,
+     0.1428,
+     0.0136,
+     0.0061
+    ],
+    [
+     0.0,
+     0.0,
+     0.4754,
+     0.1615,
+     0.109,
+     55.2482,
+     0.5082,
+     0.1946
+    ],
+    [
+     0.0001,
+     0.005,
+     0.3658,
+     0.0126,
+     0.0189,
+     0.6496,
+     8.1908,
+     0.0167
+    ],
+    [
+     0.0,
+     0.0,
+     0.0005,
+     0.0,
+     0.006,
+     0.2394,
+     0.0438,
+     1.7537
+    ]
+   ]
+  }
+ },
+ "inundation": {
+  "always_water_km2": 68.4477,
+  "ever_water_km2": 101.6213,
+  "wet_only_km2": 16.0959,
+  "breathing_ratio": 0.21321558009410368
+ },
+ "pixel_trends": {
+  "mndwi_wet": {
+   "sig_increase_km2": 1.1948,
+   "sig_decrease_km2": 4.9192
+  },
+  "ndvi_dry": {
+   "sig_increase_km2": 5.5336,
+   "sig_decrease_km2": 9.8724
+  }
+ },
+ "submerged_vegetation": {
+  "ndavi_threshold": 0.15,
+  "method": "anomaly",
+  "persistent_km2": 1.887,
+  "series": [
+   {
+    "year": 2017,
+    "sav_km2": 8.408900000000001,
+    "lake_km2": 72.57520000000001,
+    "sav_share": 0.11586464797892393,
+    "lake_median_ndavi": -0.2920667827129364
+   },
+   {
+    "year": 2018,
+    "sav_km2": 1.2431,
+    "lake_km2": 79.68220000000001,
+    "sav_share": 0.015600723875595805,
+    "lake_median_ndavi": -0.33530664443969727
+   },
+   {
+    "year": 2019,
+    "sav_km2": 19.6049,
+    "lake_km2": 85.8636,
+    "sav_share": 0.22832608928579748,
+    "lake_median_ndavi": -0.4990537166595459
+   },
+   {
+    "year": 2020,
+    "sav_km2": 4.8235,
+    "lake_km2": 79.0644,
+    "sav_share": 0.06100722954958237,
+    "lake_median_ndavi": -0.6400339603424072
+   },
+   {
+    "year": 2021,
+    "sav_km2": 8.458400000000001,
+    "lake_km2": 75.7885,
+    "sav_share": 0.11160532270727089,
+    "lake_median_ndavi": -0.5935776233673096
+   },
+   {
+    "year": 2022,
+    "sav_km2": 20.7196,
+    "lake_km2": 78.7392,
+    "sav_share": 0.26314211980817687,
+    "lake_median_ndavi": -0.5535034537315369
+   },
+   {
+    "year": 2023,
+    "sav_km2": 13.6963,
+    "lake_km2": 70.1746,
+    "sav_share": 0.19517460733655767,
+    "lake_median_ndavi": -0.5510129332542419
+   },
+   {
+    "year": 2024,
+    "sav_km2": 10.577,
+    "lake_km2": 74.3852,
+    "sav_share": 0.14219226405252658,
+    "lake_median_ndavi": -0.38940203189849854
+   },
+   {
+    "year": 2025,
+    "sav_km2": 14.134500000000001,
+    "lake_km2": 67.9614,
+    "sav_share": 0.20797835241769594,
+    "lake_median_ndavi": -0.5946745872497559
+   },
+   {
+    "year": 2026,
+    "sav_km2": 9.262,
+    "lake_km2": 76.97420000000001,
+    "sav_share": 0.120326031319585,
+    "lake_median_ndavi": -0.2629672586917877
+   }
+  ],
+  "trend": {
+   "n": 10,
+   "S": 13.0,
+   "tau": 0.28888888888888886,
+   "z": 1.073312629199899,
+   "p": 0.28313087066234655,
+   "sen_slope": 0.7061999999999996,
+   "slope_ci95": [
+    -1.4775571428571428,
+    2.4051000000000005
+   ],
+   "intercept": -1417.3841499999994,
+   "trend": "no significant trend"
+  }
+ },
+ "drivers": {
+  "table": [
+   {
+    "year": 2017,
+    "season": "wet",
+    "perm_water": 72.5752,
+    "seas_water": 19.6717,
+    "fresh_marsh": 9.5566,
+    "halo_marsh": 3.2574,
+    "saline_flat": 0.1188,
+    "crop_grass": 50.0594,
+    "shrub_wood": 10.0626,
+    "built": 2.0001,
+    "open_water": 92.2469,
+    "marsh": 12.814,
+    "rain_wet_antecedent": 403.6227,
+    "rain_dry_antecedent": 492.1133,
+    "rain_prev_hydro_year": 444.8058,
+    "rain_hydro_year": 504.5479,
+    "rain_antecedent": 403.6227,
+    "is_wet": 1
+   },
+   {
+    "year": 2017,
+    "season": "dry",
+    "perm_water": 59.4284,
+    "seas_water": 9.3149,
+    "fresh_marsh": 5.9034,
+    "halo_marsh": 6.034,
+    "saline_flat": 19.6956,
+    "crop_grass": 56.1351,
+    "shrub_wood": 8.35,
+    "built": 2.4404,
+    "open_water": 68.7433,
+    "marsh": 11.9374,
+    "rain_wet_antecedent": 403.6227,
+    "rain_dry_antecedent": 492.1133,
+    "rain_prev_hydro_year": 444.8058,
+    "rain_hydro_year": 504.5479,
+    "rain_antecedent": 492.1133,
+    "is_wet": 0
+   },
+   {
+    "year": 2018,
+    "season": "wet",
+    "perm_water": 79.6822,
+    "seas_water": 13.4419,
+    "fresh_marsh": 10.4539,
+    "halo_marsh": 1.2369,
+    "saline_flat": 0.0646,
+    "crop_grass": 48.562,
+    "shrub_wood": 11.4897,
+    "built": 2.3706,
+    "open_water": 93.1241,
+    "marsh": 11.6908,
+    "rain_wet_antecedent": 288.7828,
+    "rain_dry_antecedent": 443.7434,
+    "rain_prev_hydro_year": 504.5479,
+    "rain_hydro_year": 521.2686,
+    "rain_antecedent": 288.7828,
+    "is_wet": 1
+   },
+   {
+    "year": 2018,
+    "season": "dry",
+    "perm_water": 74.3848,
+    "seas_water": 5.9041,
+    "fresh_marsh": 3.8201,
+    "halo_marsh": 5.1498,
+    "saline_flat": 9.8849,
+    "crop_grass": 57.0805,
+    "shrub_wood": 9.0908,
+    "built": 1.9868,
+    "open_water": 80.2889,
+    "marsh": 8.9699,
+    "rain_wet_antecedent": 288.7828,
+    "rain_dry_antecedent": 443.7434,
+    "rain_prev_hydro_year": 504.5479,
+    "rain_hydro_year": 521.2686,
+    "rain_antecedent": 443.7434,
+    "is_wet": 0
+   },
+   {
+    "year": 2019,
+    "season": "wet",
+    "perm_water": 85.8636,
+    "seas_water": 11.4333,
+    "fresh_marsh": 9.0379,
+    "halo_marsh": 2.1802,
+    "saline_flat": 0.0601,
+    "crop_grass": 44.0189,
+    "shrub_wood": 12.2029,
+    "built": 2.5049,
+    "open_water": 97.2969,
+    "marsh": 11.2181,
+    "rain_wet_antecedent": 433.7771,
+    "rain_dry_antecedent": 622.4193,
+    "rain_prev_hydro_year": 521.2686,
+    "rain_hydro_year": 666.8103,
+    "rain_antecedent": 433.7771,
+    "is_wet": 1
+   },
+   {
+    "year": 2019,
+    "season": "dry",
+    "perm_water": 75.0709,
+    "seas_water": 7.4959,
+    "fresh_marsh": 6.2443,
+    "halo_marsh": 3.6965,
+    "saline_flat": 7.666,
+    "crop_grass": 53.546,
+    "shrub_wood": 11.4566,
+    "built": 2.1256,
+    "open_water": 82.5668,
+    "marsh": 9.9408,
+    "rain_wet_antecedent": 433.7771,
+    "rain_dry_antecedent": 622.4193,
+    "rain_prev_hydro_year": 521.2686,
+    "rain_hydro_year": 666.8103,
+    "rain_antecedent": 622.4193,
+    "is_wet": 0
+   },
+   {
+    "year": 2020,
+    "season": "wet",
+    "perm_water": 79.0644,
+    "seas_water": 11.7483,
+    "fresh_marsh": 8.4865,
+    "halo_marsh": 2.8431,
+    "saline_flat": 0.1172,
+    "crop_grass": 50.0455,
+    "shrub_wood": 12.7471,
+    "built": 2.2497,
+    "open_water": 90.8127,
+    "marsh": 11.3296,
+    "rain_wet_antecedent": 285.821,
+    "rain_dry_antecedent": 476.0729,
+    "rain_prev_hydro_year": 666.8103,
+    "rain_hydro_year": 500.4852,
+    "rain_antecedent": 285.821,
+    "is_wet": 1
+   },
+   {
+    "year": 2020,
+    "season": "dry",
+    "perm_water": 68.8154,
+    "seas_water": 8.0538,
+    "fresh_marsh": 6.6339,
+    "halo_marsh": 5.272,
+    "saline_flat": 12.5078,
+    "crop_grass": 53.4798,
+    "shrub_wood": 10.3187,
+    "built": 2.2204,
+    "open_water": 76.8692,
+    "marsh": 11.9059,
+    "rain_wet_antecedent": 285.821,
+    "rain_dry_antecedent": 476.0729,
+    "rain_prev_hydro_year": 666.8103,
+    "rain_hydro_year": 500.4852,
+    "rain_antecedent": 476.0729,
+    "is_wet": 0
+   },
+   {
+    "year": 2021,
+    "season": "wet",
+    "perm_water": 75.7885,
+    "seas_water": 14.8128,
+    "fresh_marsh": 9.7407,
+    "halo_marsh": 3.8888,
+    "saline_flat": 0.2717,
+    "crop_grass": 48.7664,
+    "shrub_wood": 11.8476,
+    "built": 2.1853,
+    "open_water": 90.6013,
+    "marsh": 13.6295,
+    "rain_wet_antecedent": 375.175,
+    "rain_dry_antecedent": 519.6796,
+    "rain_prev_hydro_year": 500.4852,
+    "rain_hydro_year": 535.3193,
+    "rain_antecedent": 375.175,
+    "is_wet": 1
+   },
+   {
+    "year": 2021,
+    "season": "dry",
+    "perm_water": 66.4512,
+    "seas_water": 7.7363,
+    "fresh_marsh": 7.5491,
+    "halo_marsh": 4.4312,
+    "saline_flat": 15.8357,
+    "crop_grass": 57.5039,
+    "shrub_wood": 5.8703,
+    "built": 1.9241,
+    "open_water": 74.1875,
+    "marsh": 11.9803,
+    "rain_wet_antecedent": 375.175,
+    "rain_dry_antecedent": 519.6796,
+    "rain_prev_hydro_year": 500.4852,
+    "rain_hydro_year": 535.3193,
+    "rain_antecedent": 519.6796,
+    "is_wet": 0
+   },
+   {
+    "year": 2022,
+    "season": "wet",
+    "perm_water": 78.7392,
+    "seas_water": 13.284,
+    "fresh_marsh": 9.989,
+    "halo_marsh": 2.7399,
+    "saline_flat": 0.0925,
+    "crop_grass": 48.7795,
+    "shrub_wood": 11.3716,
+    "built": 2.3061,
+    "open_water": 92.0232,
+    "marsh": 12.7289,
+    "rain_wet_antecedent": 285.1848,
+    "rain_dry_antecedent": 411.6103,
+    "rain_prev_hydro_year": 535.3193,
+    "rain_hydro_year": 421.9903,
+    "rain_antecedent": 285.1848,
+    "is_wet": 1
+   },
+   {
+    "year": 2022,
+    "season": "dry",
+    "perm_water": 65.9898,
+    "seas_water": 7.8964,
+    "fresh_marsh": 5.6962,
+    "halo_marsh": 4.7797,
+    "saline_flat": 16.9746,
+    "crop_grass": 55.1562,
+    "shrub_wood": 8.824,
+    "built": 1.9849,
+    "open_water": 73.8862,
+    "marsh": 10.4759,
+    "rain_wet_antecedent": 285.1848,
+    "rain_dry_antecedent": 411.6103,
+    "rain_prev_hydro_year": 535.3193,
+    "rain_hydro_year": 421.9903,
+    "rain_antecedent": 411.6103,
+    "is_wet": 0
+   },
+   {
+    "year": 2023,
+    "season": "wet",
+    "perm_water": 70.1746,
+    "seas_water": 16.0712,
+    "fresh_marsh": 6.8141,
+    "halo_marsh": 4.0878,
+    "saline_flat": 3.3337,
+    "crop_grass": 52.0305,
+    "shrub_wood": 12.591,
+    "built": 2.1989,
+    "open_water": 86.2458,
+    "marsh": 10.9019,
+    "rain_wet_antecedent": 225.9823,
+    "rain_dry_antecedent": 435.7412,
+    "rain_prev_hydro_year": 421.9903,
+    "rain_hydro_year": 444.6091,
+    "rain_antecedent": 225.9823,
+    "is_wet": 1
+   },
+   {
+    "year": 2023,
+    "season": "dry",
+    "perm_water": 68.4528,
+    "seas_water": 5.2949,
+    "fresh_marsh": 4.6755,
+    "halo_marsh": 5.3715,
+    "saline_flat": 15.9729,
+    "crop_grass": 56.5897,
+    "shrub_wood": 8.9341,
+    "built": 2.0104,
+    "open_water": 73.7477,
+    "marsh": 10.047,
+    "rain_wet_antecedent": 225.9823,
+    "rain_dry_antecedent": 435.7412,
+    "rain_prev_hydro_year": 421.9903,
+    "rain_hydro_year": 444.6091,
+    "rain_antecedent": 435.7412,
+    "is_wet": 0
+   },
+   {
+    "year": 2024,
+    "season": "wet",
+    "perm_water": 74.3852,
+    "seas_water": 13.6757,
+    "fresh_marsh": 7.1746,
+    "halo_marsh": 2.923,
+    "saline_flat": 1.3476,
+    "crop_grass": 55.307,
+    "shrub_wood": 10.4019,
+    "built": 2.0868,
+    "open_water": 88.0609,
+    "marsh": 10.0976,
+    "rain_wet_antecedent": 251.413,
+    "rain_dry_antecedent": 364.9357,
+    "rain_prev_hydro_year": 444.6091,
+    "rain_hydro_year": 381.271,
+    "rain_antecedent": 251.413,
+    "is_wet": 1
+   },
+   {
+    "year": 2024,
+    "season": "dry",
+    "perm_water": 64.2512,
+    "seas_water": 7.67,
+    "fresh_marsh": 4.8307,
+    "halo_marsh": 4.5555,
+    "saline_flat": 17.4404,
+    "crop_grass": 58.0055,
+    "shrub_wood": 8.4085,
+    "built": 2.14,
+    "open_water": 71.9212,
+    "marsh": 9.3862,
+    "rain_wet_antecedent": 251.413,
+    "rain_dry_antecedent": 364.9357,
+    "rain_prev_hydro_year": 444.6091,
+    "rain_hydro_year": 381.271,
+    "rain_antecedent": 364.9357,
+    "is_wet": 0
+   },
+   {
+    "year": 2025,
+    "season": "wet",
+    "perm_water": 67.9614,
+    "seas_water": 20.2758,
+    "fresh_marsh": 11.9496,
+    "halo_marsh": 3.1258,
+    "saline_flat": 0.6071,
+    "crop_grass": 50.0273,
+    "shrub_wood": 11.4093,
+    "built": 1.9455,
+    "open_water": 88.2372,
+    "marsh": 15.0754,
+    "rain_wet_antecedent": 349.1454,
+    "rain_dry_antecedent": 533.7401,
+    "rain_prev_hydro_year": 381.271,
+    "rain_hydro_year": 557.6525,
+    "rain_antecedent": 349.1454,
+    "is_wet": 1
+   },
+   {
+    "year": 2025,
+    "season": "dry",
+    "perm_water": 66.3624,
+    "seas_water": 8.8435,
+    "fresh_marsh": 4.1368,
+    "halo_marsh": 3.8381,
+    "saline_flat": 14.8156,
+    "crop_grass": 57.6404,
+    "shrub_wood": 9.6285,
+    "built": 2.0365,
+    "open_water": 75.2059,
+    "marsh": 7.9749,
+    "rain_wet_antecedent": 349.1454,
+    "rain_dry_antecedent": 533.7401,
+    "rain_prev_hydro_year": 381.271,
+    "rain_hydro_year": 557.6525,
+    "rain_antecedent": 533.7401,
+    "is_wet": 0
+   },
+   {
+    "year": 2026,
+    "season": "wet",
+    "perm_water": 76.9742,
+    "seas_water": 24.0498,
+    "fresh_marsh": 7.2963,
+    "halo_marsh": 2.5354,
+    "saline_flat": 0.0774,
+    "crop_grass": 43.6359,
+    "shrub_wood": 10.6993,
+    "built": 2.0335,
+    "open_water": 101.024,
+    "marsh": 9.8317,
+    "rain_wet_antecedent": 408.1657,
+    "rain_dry_antecedent": 565.7926,
+    "rain_prev_hydro_year": 557.6525,
+    "rain_hydro_year": 574.1665,
+    "rain_antecedent": 408.1657,
+    "is_wet": 1
+   },
+   {
+    "year": 2026,
+    "season": "dry",
+    "perm_water": 73.5368,
+    "seas_water": 6.2179,
+    "fresh_marsh": 2.6908,
+    "halo_marsh": 5.2111,
+    "saline_flat": 12.122,
+    "crop_grass": 56.5291,
+    "shrub_wood": 8.988,
+    "built": 2.0061,
+    "open_water": 79.7547,
+    "marsh": 7.9019,
+    "rain_wet_antecedent": 408.1657,
+    "rain_dry_antecedent": 565.7926,
+    "rain_prev_hydro_year": 557.6525,
+    "rain_hydro_year": 574.1665,
+    "rain_antecedent": 565.7926,
+    "is_wet": 0
+   }
+  ],
+  "ols": {
+   "open_water": {
+    "r2": 0.9134109598632327,
+    "adj_r2": 0.8903205491600948,
+    "coef": {
+     "const": -329.61045,
+     "is_wet": 21.70311,
+     "rain_antecedent": 0.03498,
+     "rain_prev_hydro_year": 0.02241,
+     "year": 0.18657
+    },
+    "p": {
+     "const": 0.5209,
+     "is_wet": 0.0,
+     "rain_antecedent": 0.0029,
+     "rain_prev_hydro_year": 0.0282,
+     "year": 0.4623
+    },
+    "ci95": [
+     [
+      -1398.37148,
+      739.15057
+     ],
+     [
+      17.29746,
+      26.10876
+     ],
+     [
+      0.01397,
+      0.05599
+     ],
+     [
+      0.00274,
+      0.04208
+     ],
+     [
+      -0.34063,
+      0.71377
+     ]
+    ],
+    "unique_r2": {
+     "rain_antecedent": 0.07270266110466095,
+     "rain_prev_hydro_year": 0.03402742295461825,
+     "year": 0.003284437452523048
+    }
+   },
+   "marsh": {
+    "r2": 0.38797288723936885,
+    "adj_r2": 0.2247656571698673,
+    "coef": {
+     "const": 428.84997,
+     "is_wet": 1.89775,
+     "rain_antecedent": 0.00012,
+     "rain_prev_hydro_year": -0.00227,
+     "year": -0.20664
+    },
+    "p": {
+     "const": 0.1201,
+     "is_wet": 0.0971,
+     "rain_antecedent": 0.9823,
+     "rain_prev_hydro_year": 0.642,
+     "year": 0.1282
+    },
+    "ci95": [
+     [
+      -125.70598,
+      983.40593
+     ],
+     [
+      -0.38825,
+      4.18374
+     ],
+     [
+      -0.01079,
+      0.01102
+     ],
+     [
+      -0.01248,
+      0.00793
+     ],
+     [
+      -0.48019,
+      0.06691
+     ]
+    ],
+    "unique_r2": {
+     "rain_antecedent": 2.0833089091287782e-05,
+     "rain_prev_hydro_year": 0.00918463190213381,
+     "year": 0.10577581268747482
+    }
+   },
+   "saline_flat": {
+    "r2": 0.9217541944369543,
+    "adj_r2": 0.9008886462868088,
+    "coef": {
+     "const": -30.19138,
+     "is_wet": -16.34228,
+     "rain_antecedent": -0.01706,
+     "rain_prev_hydro_year": -0.01103,
+     "year": 0.02883
+    },
+    "p": {
+     "const": 0.9382,
+     "is_wet": 0.0,
+     "rain_antecedent": 0.0386,
+     "rain_prev_hydro_year": 0.1385,
+     "year": 0.8807
+    },
+    "ci95": [
+     [
+      -846.47715,
+      786.0944
+     ],
+     [
+      -19.70718,
+      -12.97738
+     ],
+     [
+      -0.03311,
+      -0.00102
+     ],
+     [
+      -0.02605,
+      0.004
+     ],
+     [
+      -0.37383,
+      0.43148
+     ]
+    ],
+    "unique_r2": {
+     "rain_antecedent": 0.02679541429141663,
+     "rain_prev_hydro_year": 0.012768874702931976,
+     "year": 0.00012147474418977566
+    }
+   }
+  },
+  "per_season": {
+   "open_water": {
+    "wet": {
+     "slope_km2_per_100mm": 4.3318537173762826,
+     "r2": 0.5021858009260025,
+     "p": 0.021784500709660565,
+     "intercept": 77.64155717414677
+    },
+    "dry": {
+     "slope_km2_per_100mm": 3.0705328603529036,
+     "r2": 0.3157634963099464,
+     "p": 0.09091588070283095,
+     "intercept": 60.77639254115044
+    }
+   },
+   "marsh": {
+    "wet": {
+     "slope_km2_per_100mm": 0.45546951507036276,
+     "r2": 0.041031053947782725,
+     "p": 0.5746350511792568,
+     "intercept": 10.42548049885302
+    },
+    "dry": {
+     "slope_km2_per_100mm": -0.2504073639752871,
+     "r2": 0.015497956930225265,
+     "p": 0.7318577548905144,
+     "intercept": 11.27046427568216
+    }
+   },
+   "saline_flat": {
+    "wet": {
+     "slope_km2_per_100mm": -0.8953910493547194,
+     "r2": 0.3909105611707311,
+     "p": 0.05322891406346862,
+     "intercept": 3.5701907437991993
+    },
+    "dry": {
+     "slope_km2_per_100mm": -2.693627324134827,
+     "r2": 0.3127655734013519,
+     "p": 0.09280198735901371,
+     "intercept": 27.39833225196704
+    }
+   }
+  },
+  "gbm_shap": {
+   "target": "open_water",
+   "features": [
+    "is_wet",
+    "rain_antecedent",
+    "rain_prev_hydro_year",
+    "year"
+   ],
+   "loyo_r2": 0.7415914498541707,
+   "mean_abs_shap": [
+    8.1731,
+    0.8967,
+    2.5889,
+    1.2972
+   ],
+   "shap_values": [
+    [
+     8.6489,
+     1.6677,
+     -3.1504,
+     0.2491
+    ],
+    [
+     -8.6489,
+     0.0419,
+     -4.0264,
+     -0.361
+    ],
+    [
+     7.0788,
+     -0.8293,
+     1.5392,
+     0.6563
+    ],
+    [
+     -7.8749,
+     0.736,
+     2.7975,
+     0.4714
+    ],
+    [
+     8.4347,
+     1.5412,
+     3.6671,
+     0.3203
+    ],
+    [
+     -8.4347,
+     0.5685,
+     4.0174,
+     0.4914
+    ],
+    [
+     7.6386,
+     -0.7884,
+     1.4088,
+     0.195
+    ],
+    [
+     -8.4347,
+     0.5545,
+     1.3543,
+     0.0363
+    ],
+    [
+     8.2093,
+     1.2404,
+     0.8121,
+     -2.6
+    ],
+    [
+     -8.2093,
+     0.1973,
+     1.8202,
+     -3.6095
+    ],
+    [
+     7.8663,
+     -0.9015,
+     2.9721,
+     -2.3655
+    ],
+    [
+     -8.7691,
+     0.3626,
+     2.7404,
+     -3.6211
+    ],
+    [
+     7.6022,
+     -1.1963,
+     -2.8912,
+     -0.4921
+    ],
+    [
+     -8.4991,
+     0.8593,
+     -3.3395,
+     0.1344
+    ],
+    [
+     7.6022,
+     -1.1963,
+     -2.5228,
+     -0.3342
+    ],
+    [
+     -8.4991,
+     -0.1421,
+     -2.6912,
+     -0.4314
+    ],
+    [
+     7.5624,
+     -1.2779,
+     -3.0356,
+     1.5503
+    ],
+    [
+     -8.4016,
+     0.6037,
+     -3.4601,
+     2.7754
+    ],
+    [
+     8.5237,
+     2.2187,
+     1.8252,
+     2.6496
+    ],
+    [
+     -8.5237,
+     1.0096,
+     1.7073,
+     2.5995
+    ]
+   ],
+   "feature_values": [
+    [
+     1.0,
+     403.62,
+     444.81,
+     2017.0
+    ],
+    [
+     0.0,
+     492.11,
+     444.81,
+     2017.0
+    ],
+    [
+     1.0,
+     288.78,
+     504.55,
+     2018.0
+    ],
+    [
+     0.0,
+     443.74,
+     504.55,
+     2018.0
+    ],
+    [
+     1.0,
+     433.78,
+     521.27,
+     2019.0
+    ],
+    [
+     0.0,
+     622.42,
+     521.27,
+     2019.0
+    ],
+    [
+     1.0,
+     285.82,
+     666.81,
+     2020.0
+    ],
+    [
+     0.0,
+     476.07,
+     666.81,
+     2020.0
+    ],
+    [
+     1.0,
+     375.18,
+     500.49,
+     2021.0
+    ],
+    [
+     0.0,
+     519.68,
+     500.49,
+     2021.0
+    ],
+    [
+     1.0,
+     285.18,
+     535.32,
+     2022.0
+    ],
+    [
+     0.0,
+     411.61,
+     535.32,
+     2022.0
+    ],
+    [
+     1.0,
+     225.98,
+     421.99,
+     2023.0
+    ],
+    [
+     0.0,
+     435.74,
+     421.99,
+     2023.0
+    ],
+    [
+     1.0,
+     251.41,
+     444.61,
+     2024.0
+    ],
+    [
+     0.0,
+     364.94,
+     444.61,
+     2024.0
+    ],
+    [
+     1.0,
+     349.15,
+     381.27,
+     2025.0
+    ],
+    [
+     0.0,
+     533.74,
+     381.27,
+     2025.0
+    ],
+    [
+     1.0,
+     408.17,
+     557.65,
+     2026.0
+    ],
+    [
+     0.0,
+     565.79,
+     557.65,
+     2026.0
+    ]
+   ]
+  }
+ },
+ "rain_features": [
+  {
+   "year": 2017,
+   "rain_wet_antecedent": 403.62269116193056,
+   "rain_dry_antecedent": 492.1133426465094,
+   "rain_prev_hydro_year": 444.8058143891394,
+   "rain_hydro_year": 504.54794339835644
+  },
+  {
+   "year": 2018,
+   "rain_wet_antecedent": 288.78283984959126,
+   "rain_dry_antecedent": 443.7434333264828,
+   "rain_prev_hydro_year": 504.54794339835644,
+   "rain_hydro_year": 521.2686014957726
+  },
+  {
+   "year": 2019,
+   "rain_wet_antecedent": 433.77709279209375,
+   "rain_dry_antecedent": 622.4192997254431,
+   "rain_prev_hydro_year": 521.2686014957726,
+   "rain_hydro_year": 666.8103169128299
+  },
+  {
+   "year": 2020,
+   "rain_wet_antecedent": 285.82096334919333,
+   "rain_dry_antecedent": 476.07287966646254,
+   "rain_prev_hydro_year": 666.8103169128299,
+   "rain_hydro_year": 500.4852143917233
+  },
+  {
+   "year": 2021,
+   "rain_wet_antecedent": 375.17501888796687,
+   "rain_dry_antecedent": 519.679601916112,
+   "rain_prev_hydro_year": 500.4852143917233,
+   "rain_hydro_year": 535.3193130427971
+  },
+  {
+   "year": 2022,
+   "rain_wet_antecedent": 285.1848395243287,
+   "rain_dry_antecedent": 411.6103083267808,
+   "rain_prev_hydro_year": 535.3193130427971,
+   "rain_hydro_year": 421.9903296492994
+  },
+  {
+   "year": 2023,
+   "rain_wet_antecedent": 225.9823410846293,
+   "rain_dry_antecedent": 435.7411605399102,
+   "rain_prev_hydro_year": 421.9903296492994,
+   "rain_hydro_year": 444.60908159427345
+  },
+  {
+   "year": 2024,
+   "rain_wet_antecedent": 251.4129757732153,
+   "rain_dry_antecedent": 364.9356714915484,
+   "rain_prev_hydro_year": 444.60908159427345,
+   "rain_hydro_year": 381.27101421914995
+  },
+  {
+   "year": 2025,
+   "rain_wet_antecedent": 349.1454135738313,
+   "rain_dry_antecedent": 533.7401457577944,
+   "rain_prev_hydro_year": 381.27101421914995,
+   "rain_hydro_year": 557.65254740417
+  },
+  {
+   "year": 2026,
+   "rain_wet_antecedent": 408.16567458212376,
+   "rain_dry_antecedent": 565.7925739139318,
+   "rain_prev_hydro_year": 557.65254740417,
+   "rain_hydro_year": 574.1664882041514
+  }
+ ],
+ "landsat": {
+  "rows": [
+   {
+    "year": 1984,
+    "season": "dry",
+    "water_km2": 72.8955,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1985,
+    "season": "dry",
+    "water_km2": 73.5498,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1985,
+    "season": "wet",
+    "water_km2": 110.8638,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1986,
+    "season": "dry",
+    "water_km2": 72.4815,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1986,
+    "season": "wet",
+    "water_km2": 95.3316,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1987,
+    "season": "dry",
+    "water_km2": 79.64999999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1987,
+    "season": "wet",
+    "water_km2": null,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 0.567
+   },
+   {
+    "year": 1988,
+    "season": "dry",
+    "water_km2": 70.94879999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1988,
+    "season": "wet",
+    "water_km2": null,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 0.898
+   },
+   {
+    "year": 1989,
+    "season": "dry",
+    "water_km2": 72.4689,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1989,
+    "season": "wet",
+    "water_km2": 89.6949,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 0.999
+   },
+   {
+    "year": 1990,
+    "season": "dry",
+    "water_km2": 72.1467,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1990,
+    "season": "wet",
+    "water_km2": 98.4708,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1991,
+    "season": "dry",
+    "water_km2": 77.13629999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1991,
+    "season": "wet",
+    "water_km2": 119.0367,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1992,
+    "season": "dry",
+    "water_km2": 77.6268,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1992,
+    "season": "wet",
+    "water_km2": 91.29599999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1993,
+    "season": "dry",
+    "water_km2": 70.26299999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1993,
+    "season": "wet",
+    "water_km2": 95.98859999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1994,
+    "season": "dry",
+    "water_km2": 70.2648,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1994,
+    "season": "wet",
+    "water_km2": 81.3609,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 0.989
+   },
+   {
+    "year": 1995,
+    "season": "dry",
+    "water_km2": 73.4787,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1995,
+    "season": "wet",
+    "water_km2": 85.536,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1996,
+    "season": "dry",
+    "water_km2": 89.1279,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1996,
+    "season": "wet",
+    "water_km2": 91.19879999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1997,
+    "season": "dry",
+    "water_km2": null,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 0.893
+   },
+   {
+    "year": 1997,
+    "season": "wet",
+    "water_km2": 86.6754,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1998,
+    "season": "dry",
+    "water_km2": 80.3457,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1998,
+    "season": "wet",
+    "water_km2": 99.7119,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1999,
+    "season": "dry",
+    "water_km2": 72.5004,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 1999,
+    "season": "wet",
+    "water_km2": 93.9132,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2000,
+    "season": "dry",
+    "water_km2": 72.3087,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2000,
+    "season": "wet",
+    "water_km2": 85.3857,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2001,
+    "season": "dry",
+    "water_km2": 73.41929999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2001,
+    "season": "wet",
+    "water_km2": 96.5709,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2002,
+    "season": "dry",
+    "water_km2": 73.8423,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2002,
+    "season": "wet",
+    "water_km2": 77.535,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2003,
+    "season": "dry",
+    "water_km2": 85.07339999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2003,
+    "season": "wet",
+    "water_km2": 114.2802,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2004,
+    "season": "dry",
+    "water_km2": 81.3951,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2004,
+    "season": "wet",
+    "water_km2": 103.7025,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2005,
+    "season": "dry",
+    "water_km2": 79.5573,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2005,
+    "season": "wet",
+    "water_km2": 117.0531,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2006,
+    "season": "dry",
+    "water_km2": 78.345,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2006,
+    "season": "wet",
+    "water_km2": 110.0655,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2007,
+    "season": "dry",
+    "water_km2": 80.8938,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2007,
+    "season": "wet",
+    "water_km2": 91.22489999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2008,
+    "season": "dry",
+    "water_km2": 77.4063,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2008,
+    "season": "wet",
+    "water_km2": 91.2393,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 0.976
+   },
+   {
+    "year": 2009,
+    "season": "dry",
+    "water_km2": 86.0994,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2009,
+    "season": "wet",
+    "water_km2": 103.77629999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2010,
+    "season": "dry",
+    "water_km2": 77.6628,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2010,
+    "season": "wet",
+    "water_km2": 99.68039999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2011,
+    "season": "dry",
+    "water_km2": 77.0679,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2011,
+    "season": "wet",
+    "water_km2": 95.14439999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2012,
+    "season": "dry",
+    "water_km2": 78.28829999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 0.96
+   },
+   {
+    "year": 2012,
+    "season": "wet",
+    "water_km2": 112.73219999999999,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2013,
+    "season": "dry",
+    "water_km2": 79.0047,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2013,
+    "season": "wet",
+    "water_km2": 102.7026,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2014,
+    "season": "dry",
+    "water_km2": 78.2028,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2014,
+    "season": "wet",
+    "water_km2": 96.8184,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2015,
+    "season": "dry",
+    "water_km2": 79.8507,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2015,
+    "season": "wet",
+    "water_km2": 98.0217,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2016,
+    "season": "dry",
+    "water_km2": 72.7515,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2016,
+    "season": "wet",
+    "water_km2": null,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 0.876
+   },
+   {
+    "year": 2017,
+    "season": "dry",
+    "water_km2": 69.8544,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2017,
+    "season": "wet",
+    "water_km2": 91.5354,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2018,
+    "season": "dry",
+    "water_km2": 79.3287,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2018,
+    "season": "wet",
+    "water_km2": 91.0125,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2019,
+    "season": "dry",
+    "water_km2": 83.6019,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2019,
+    "season": "wet",
+    "water_km2": 99.4122,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2020,
+    "season": "dry",
+    "water_km2": 76.0221,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2020,
+    "season": "wet",
+    "water_km2": 91.098,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2021,
+    "season": "dry",
+    "water_km2": 75.4002,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2021,
+    "season": "wet",
+    "water_km2": 90.6903,
+    "source": "Landsat",
+    "scenes": 5,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2017,
+    "season": "wet",
+    "water_km2": 92.2469,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2017,
+    "season": "dry",
+    "water_km2": 68.7433,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2018,
+    "season": "wet",
+    "water_km2": 93.1241,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2018,
+    "season": "dry",
+    "water_km2": 80.2889,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2019,
+    "season": "wet",
+    "water_km2": 97.29690000000001,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2019,
+    "season": "dry",
+    "water_km2": 82.5668,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2020,
+    "season": "wet",
+    "water_km2": 90.8127,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2020,
+    "season": "dry",
+    "water_km2": 76.86919999999999,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2021,
+    "season": "wet",
+    "water_km2": 90.6013,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2021,
+    "season": "dry",
+    "water_km2": 74.1875,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2022,
+    "season": "wet",
+    "water_km2": 92.0232,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2022,
+    "season": "dry",
+    "water_km2": 73.8862,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2023,
+    "season": "wet",
+    "water_km2": 86.2458,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2023,
+    "season": "dry",
+    "water_km2": 73.7477,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2024,
+    "season": "wet",
+    "water_km2": 88.0609,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2024,
+    "season": "dry",
+    "water_km2": 71.9212,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2025,
+    "season": "wet",
+    "water_km2": 88.2372,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2025,
+    "season": "dry",
+    "water_km2": 75.2059,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2026,
+    "season": "wet",
+    "water_km2": 101.024,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   },
+   {
+    "year": 2026,
+    "season": "dry",
+    "water_km2": 79.7547,
+    "source": "Sentinel-2",
+    "scenes": null,
+    "valid_fraction": 1.0
+   }
+  ],
+  "overlap": {
+   "n": 10,
+   "threshold": 0.25944188237190247,
+   "r": 0.9908167323819864,
+   "mean_abs_diff_km2": 1.0478899999999967,
+   "bias_km2": 0.12180999999999784,
+   "pairs": [
+    {
+     "year": 2017,
+     "season": "dry",
+     "landsat": 69.8544,
+     "s2": 68.7433
+    },
+    {
+     "year": 2017,
+     "season": "wet",
+     "landsat": 91.5354,
+     "s2": 92.2469
+    },
+    {
+     "year": 2018,
+     "season": "dry",
+     "landsat": 79.3287,
+     "s2": 80.2889
+    },
+    {
+     "year": 2018,
+     "season": "wet",
+     "landsat": 91.0125,
+     "s2": 93.1241
+    },
+    {
+     "year": 2019,
+     "season": "dry",
+     "landsat": 83.6019,
+     "s2": 82.5668
+    },
+    {
+     "year": 2019,
+     "season": "wet",
+     "landsat": 99.4122,
+     "s2": 97.29690000000001
+    },
+    {
+     "year": 2020,
+     "season": "dry",
+     "landsat": 76.0221,
+     "s2": 76.86919999999999
+    },
+    {
+     "year": 2020,
+     "season": "wet",
+     "landsat": 91.098,
+     "s2": 90.8127
+    },
+    {
+     "year": 2021,
+     "season": "dry",
+     "landsat": 75.4002,
+     "s2": 74.1875
+    },
+    {
+     "year": 2021,
+     "season": "wet",
+     "landsat": 90.6903,
+     "s2": 90.6013
+    }
+   ]
+  },
+  "trend": {
+   "wet": {
+    "n": 39,
+    "S": -59.0,
+    "tau": -0.0796221322537112,
+    "z": -0.7016186070943274,
+    "p": 0.4829170444568125,
+    "sen_slope": -0.09269090909090881,
+    "slope_ci95": [
+     -0.37045454545454526,
+     0.16844482758620696
+    ],
+    "intercept": 279.44421818181763,
+    "trend": "no significant trend",
+    "mean_1984_1995": 96.39770000000001,
+    "mean_1996_2006": 97.82656363636362,
+    "mean_2007_2016": 99.0378,
+    "mean_2017_2026": 91.93395000000001
+   },
+   "dry": {
+    "n": 42,
+    "S": 115.0,
+    "tau": 0.13356562137049943,
+    "z": 1.235462383966544,
+    "p": 0.21665846771152952,
+    "sen_slope": 0.06256521739130404,
+    "slope_ci95": [
+     -0.0384206896551723,
+     0.17912000000000033
+    ],
+    "intercept": -49.55519565217329,
+    "trend": "no significant trend",
+    "mean_1984_1995": 73.5759,
+    "mean_1996_2006": 78.59151,
+    "mean_2007_2016": 78.72281999999998,
+    "mean_2017_2026": 75.87230000000001
+   }
+  }
+ },
+ "robustness": {
+  "rf_indices": {
+   "open_water": {
+    "wet": {
+     "sen_slope": -0.655125,
+     "p": 0.28313087066234655
+    },
+    "dry": {
+     "sen_slope": -0.20461999999999989,
+     "p": 0.8580276569875211
+    }
+   },
+   "marsh": {
+    "wet": {
+     "sen_slope": -0.14608749999999993,
+     "p": 0.8580276569875211
+    },
+    "dry": {
+     "sen_slope": -0.9584600000000002,
+     "p": 0.002357527595795439
+    }
+   },
+   "fresh_marsh": {
+    "wet": {
+     "sen_slope": -0.2321000000000002,
+     "p": 0.5915050369949166
+    },
+    "dry": {
+     "sen_slope": -0.3184333333333334,
+     "p": 0.10740463633025366
+    }
+   },
+   "halo_marsh": {
+    "wet": {
+     "sen_slope": 0.16457500000000003,
+     "p": 0.7205147871362552
+    },
+    "dry": {
+     "sen_slope": -0.5660749999999999,
+     "p": 0.07363827012030266
+    }
+   },
+   "saline_flat": {
+    "wet": {
+     "sen_slope": 0.00034,
+     "p": 1.0
+    },
+    "dry": {
+     "sen_slope": 0.4547374999999999,
+     "p": 0.4742743507673295
+    }
+   },
+   "crop_grass": {
+    "wet": {
+     "sen_slope": 0.10701249999999973,
+     "p": 1.0
+    },
+    "dry": {
+     "sen_slope": 0.8093500000000002,
+     "p": 0.10740463633025366
+    }
+   },
+   "shrub_wood": {
+    "wet": {
+     "sen_slope": 0.0764499999999999,
+     "p": 0.7205147871362552
+    },
+    "dry": {
+     "sen_slope": 0.03807142857142866,
+     "p": 1.0
+    }
+   },
+   "built": {
+    "wet": {
+     "sen_slope": -0.05388000000000002,
+     "p": 0.37109336952269745
+    },
+    "dry": {
+     "sen_slope": -0.17954999999999996,
+     "p": 0.01226606138621289
+    }
+   },
+   "dry_marsh_first3": 18.428433333333334,
+   "dry_marsh_last3": 11.254633333333333
+  },
+  "unet_cpu": {
+   "open_water": {
+    "wet": {
+     "sen_slope": -0.5012124999999994,
+     "p": 0.37109336952269745
+    },
+    "dry": {
+     "sen_slope": -0.21990000000000265,
+     "p": 0.7205147871362552
+    }
+   },
+   "marsh": {
+    "wet": {
+     "sen_slope": -0.19805714285714288,
+     "p": 0.28313087066234655
+    },
+    "dry": {
+     "sen_slope": -0.4288999999999987,
+     "p": 0.07363827012030266
+    }
+   },
+   "fresh_marsh": {
+    "wet": {
+     "sen_slope": -0.24880000000000013,
+     "p": 0.5915050369949166
+    },
+    "dry": {
+     "sen_slope": -0.35125,
+     "p": 0.15240628395674927
+    }
+   },
+   "halo_marsh": {
+    "wet": {
+     "sen_slope": 0.09155000000000002,
+     "p": 0.5915050369949166
+    },
+    "dry": {
+     "sen_slope": -0.09252499999999997,
+     "p": 0.5915050369949166
+    }
+   },
+   "saline_flat": {
+    "wet": {
+     "sen_slope": 0.038224999999999995,
+     "p": 0.37109336952269745
+    },
+    "dry": {
+     "sen_slope": 0.23290000000000077,
+     "p": 0.8580276569875211
+    }
+   },
+   "crop_grass": {
+    "wet": {
+     "sen_slope": 0.054375000000000284,
+     "p": 0.8580276569875211
+    },
+    "dry": {
+     "sen_slope": 0.16719999999999877,
+     "p": 0.28313087066234655
+    }
+   },
+   "shrub_wood": {
+    "wet": {
+     "sen_slope": -0.05203333333333345,
+     "p": 0.7205147871362552
+    },
+    "dry": {
+     "sen_slope": 0.00835714285714292,
+     "p": 1.0
+    }
+   },
+   "built": {
+    "wet": {
+     "sen_slope": -0.042137499999999994,
+     "p": 0.10740463633025366
+    },
+    "dry": {
+     "sen_slope": -0.017071428571428564,
+     "p": 0.5915050369949166
+    }
+   },
+   "dry_marsh_first3": 10.2827,
+   "dry_marsh_last3": 8.421
+  }
+ }
+}

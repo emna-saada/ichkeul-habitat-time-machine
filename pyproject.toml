@@ -1,0 +1,38 @@
+[project]
+name = "ichkeul"
+version = "1.0.0"
+description = "Seasonal wetland habitat mapping of Ichkeul National Park (Tunisia) 2017-2026 with Sentinel-2, geospatial foundation models, change analysis and driver attribution"
+authors = [{ name = "Emna Saada" }]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "h5py==3.16.0",
+    "lightgbm==4.7.0",
+    "matplotlib==3.11.2",
+    "numpy==2.5.4",
+    "pandas==3.1.0",
+    "pillow==13.0.0",
+    "pyproj==3.8.0",
+    "pytest==9.1.1",
+    "pyyaml==6.0.3",
+    "rasterio==1.5.2",
+    "requests==2.34.2",
+    "scikit-image==0.26.0",
+    "scikit-learn==1.9.1",
+    "scipy==1.18.1",
+    "shap==0.54.1",
+    "shapely==2.2.0",
+    "statsmodels==0.15.0",
+]
+
+[project.optional-dependencies]
+dl = [
+    "segmentation-models-pytorch==0.5.0",
+    "torch==2.14.1",
+]
+kaggle = ["kaggle"]
+
+[build-system]
+requires = ["uv_build>=0.11.32,<0.12.0"]
+build-backend = "uv_build"

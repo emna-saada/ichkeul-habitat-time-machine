@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ichkeul Habitat Time Machine</title>
+  <meta name="description" content="Ten years of seasonal wetland habitat maps of Ichkeul National Park (UNESCO World Heritage, Tunisia) from Sentinel-2 and geospatial foundation models, with change analysis and driver attribution." />
+  <meta name="theme-color" content="#071014" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23071014'/%3E%3Cpath d='M10 36c8-10 16 4 24-4s14-4 20 2' stroke='%234fd8c4' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <a class="brand" href="#top">Ichkeul <span>Habitat Time Machine</span></a>
+    <div class="links">
+      <a href="#context">Context</a>
+      <a href="#timemachine">Time machine</a>
+      <a href="#breathing">Breathing lake</a>
+      <a href="#change">Change</a>
+      <a href="#drivers">Drivers</a>
+      <a href="#forty">40 years</a>
+      <a href="#lab">Model lab</a>
+      <a href="#method">Method</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div id="hero-map"></div>
+    <div class="hero-legend" id="hero-legend"></div>
+    <div class="hero-content">
+      <div class="eyebrow">Ichkeul National Park · Tunisia · 2017–2026</div>
+      <h1>The lake follows the rain. <em>The marshes don't.</em></h1>
+      <p class="lede" id="hero-lede">Twenty seasonal habitat maps (2017–2026) of a UNESCO World Heritage wetland, built from Sentinel-2 imagery with machine-learning and deep segmentation models. Open water rises and falls with rainfall. Summer marshes are shrinking, and rainfall does not explain it.</p>
+      <div class="hero-stats" id="hero-stats"></div>
+    </div>
+    <div class="hero-year"><b id="hero-year">2017</b><span id="hero-season">Wet season · Jan–Mar</span></div>
+    <div class="scroll-cue">Scroll to explore</div>
+  </header>
+
+  <main>
+    <!-- ================= CONTEXT ================= -->
+    <section class="block" id="context">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">01 · The site</div>
+          <h2>The last lake of a chain that once crossed North Africa</h2>
+          <p>Ichkeul is a shallow, brackish lake with seasonal marshes and a wooded limestone massif, 25 km from Bizerte. It was one of the four most important wintering sites for waterbirds in the western Mediterranean. Since the 1980s, upstream dams have cut its freshwater supply.</p>
+        </div>
+        <div class="grid g4 reveal">
+          <div class="card"><div class="label">Lake Ichkeul</div><div class="big">~89 <small>km²</small></div><p class="muted small">Shallow (~1 m), brackish; <i>Potamogeton</i> beds feed wintering waterfowl.</p></div>
+          <div class="card"><div class="label">Garaet Ichkeul marshes</div><div class="big">27–30 <small>km²</small></div><p class="muted small">Temporarily flooded reedbeds and sedges, increasingly halophytic.</p></div>
+          <div class="card"><div class="label">Djebel Ichkeul</div><div class="big">13.6 <small>km²</small></div><p class="muted small">Isolated wooded massif rising 511 m from the plain: the stable reference class.</p></div>
+          <div class="card"><div class="label">Catchment</div><div class="big">2,080 <small>km²</small></div><p class="muted small">Eight wadis; dams now control ~40 % of the catchment and ~70 % of inflow.</p></div>
+        </div>
+
+        <div class="grid g2" style="margin-top:18px">
+          <div class="card reveal">
+            <h3>A double seasonal pulse</h3>
+            <p class="muted">In winter the rivers fill the lake. It spreads ~30 km² over the marshes, freshens, and drains to the Bizerte lagoon through the Oued Tinja. In summer evaporation lowers it, the flow reverses and seawater enters. Salinity peaks July–October.</p>
+            <svg viewBox="0 0 520 170" width="100%" role="img" aria-label="Seasonal pulse diagram">
+              <defs>
+                <linearGradient id="gw" x1="0" x2="1"><stop offset="0" stop-color="#1f4e9c"/><stop offset="1" stop-color="#56b4e9"/></linearGradient>
+              </defs>
+              <text x="10" y="18" fill="#8ea6ae" font-size="12">Wet season (Jan–Mar)</text>
+              <path d="M20 60 Q130 22 250 52 T490 50 L490 74 Q370 86 250 76 T20 82Z" fill="url(#gw)" opacity="0.95"/>
+              <path d="M4 70 h14" stroke="#4fd8c4" stroke-width="2"/>
+              <text x="12" y="98" fill="#4fd8c4" font-size="11">fresh inflow →</text>
+              <text x="372" y="98" fill="#4fd8c4" font-size="11">→ out to Bizerte lagoon</text>
+              <text x="10" y="128" fill="#8ea6ae" font-size="12">Dry season (Jul–Sep)</text>
+              <path d="M80 148 Q170 128 260 144 T430 142 L430 156 Q340 164 260 158 T80 160Z" fill="#1f4e9c" opacity="0.9"/>
+              <path d="M30 152 h44 M436 150 h44" stroke="#e6d3a3" stroke-width="10" stroke-linecap="round" opacity="0.8"/>
+              <text x="300" y="126" fill="#ef7a6a" font-size="11">← seawater in · salinity ↑</text>
+            </svg>
+            <p class="small muted">So a February image is never compared with a July one: every analysis runs on two seasonal series, wet (Jan–Mar) and dry (Jul–Sep).</p>
+          </div>
+          <div class="card reveal">
+            <h3>Why it matters now</h3>
+            <div id="birds-chart" class="chart short"></div>
+            <p class="small muted">Waterbird figures as published (sources below), shown for context only. They are not a consistent census series, so no correlation is computed from them.</p>
+          </div>
+        </div>
+
+        <div class="card reveal" style="margin-top:18px">
+          <h3>Fifty years of management decisions</h3>
+          <div class="timeline" id="timeline"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TIME MACHINE ================= -->
+    <section class="block" id="timemachine">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">02 · Time machine</div>
+          <h2>Twenty seasons, side by side</h2>
+          <p>Drag the divider to compare Sentinel-2 imagery with the habitat map, or two different years. Every map is a 10 m classification of a cloud-masked median composite.</p>
+        </div>
+        <div class="controls">
+          <div class="seg" id="tm-mode">
+            <button data-v="swipe" class="on">Imagery ⟷ habitat</button>
+            <button data-v="years">Year ⟷ year</button>
+          </div>
+          <div class="seg" id="tm-season">
+            <button data-v="wet" class="on">Wet · Jan–Mar</button>
+            <button data-v="dry">Dry · Jul–Sep</button>
+          </div>
+          <select class="btn" id="tm-yearB" title="Right-hand year" hidden></select>
+          <label class="small muted" style="display:flex;gap:8px;align-items:center">Habitat opacity <input type="range" id="tm-opacity" min="0.2" max="1" step="0.05" value="0.9" /></label>
+        </div>
+        <div class="tm">
+          <div>
+            <div class="mapbox" id="tm-box">
+              <div class="m" id="tm-a"></div>
+              <div class="m" id="tm-b"></div>
+              <div class="swipe-handle" id="tm-handle"></div>
+              <div class="map-tag l" id="tm-tag-a"></div>
+              <div class="map-tag r" id="tm-tag-b"></div>
+            </div>
+            <div class="timebar">
+              <button class="btn" id="tm-play" aria-label="Play">▶</button>
+              <input type="range" id="tm-year" min="2017" max="2026" step="1" value="2026" />
+              <b class="num" id="tm-year-label" style="font-family:var(--serif);font-size:1.4rem;width:56px">2026</b>
+            </div>
+            <div class="ticks" id="tm-ticks"></div>
+          </div>
+          <div class="side">
+            <div class="card">
+              <h3 style="font-size:1.05rem">Habitat classes</h3>
+              <p class="small muted" style="margin:0 0 10px">Area inside the Ichkeul basin envelope for the selected season. Click a class to hide it on the map.</p>
+              <div class="legend" id="tm-legend"></div>
+            </div>
+            <div class="card small" id="tm-meta"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BREATHING LAKE ================= -->
+    <section class="block" id="breathing">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">03 · The breathing lake</div>
+          <h2>How often is each pixel under water?</h2>
+          <p>Share of the 20 seasonal maps in which a pixel is open water. The bright core is the permanent lake. The pale fringe is the seasonal flood zone, the marshes the lake reclaims each winter.</p>
+        </div>
+        <div class="controls">
+          <div class="seg" id="br-layer">
+            <button data-v="inundation_all" class="on">All seasons</button>
+            <button data-v="inundation_wet">Wet seasons</button>
+            <button data-v="inundation_dry">Dry seasons</button>
+            <button data-v="sav">Submerged vegetation</button>
+            <button data-v="trend_mndwi_wet">Water trend</button>
+            <button data-v="trend_ndvi_dry">Greenness trend</button>
+          </div>
+        </div>
+        <div class="grid br-grid">
+          <div class="mapbox" style="height:540px"><div class="m" id="br-map"></div></div>
+          <div class="side">
+            <div class="card" id="br-legend"></div>
+            <div class="card" id="br-stats"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CHANGE ================= -->
+    <section class="block" id="change">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">04 · Ten years of change</div>
+          <h2 id="change-title">What the lake and marshes lost</h2>
+          <p>Class areas inside the basin envelope for every season, with Mann–Kendall trend tests and Sen's slopes (10 points per season, so only strong, monotonic changes reach significance).</p>
+        </div>
+        <div class="controls">
+          <div class="seg" id="ch-season"><button data-v="dry" class="on">Dry seasons</button><button data-v="wet">Wet seasons</button></div>
+        </div>
+        <div class="grid g2">
+          <div class="card span2"><div id="areas-chart" class="chart tall"></div></div>
+          <div class="card"><h3>Trend tests</h3><div class="table-scroll"><table id="trend-table"></table></div></div>
+          <div class="card"><h3>Where habitat went</h3><p class="small muted" id="sankey-sub"></p><div id="sankey-chart" class="chart"></div></div>
+          <div class="card span2"><h3>Same trend, different classifier</h3>
+            <p class="small muted">The key series recomputed on the maps of every model that covers all 20 seasons. Agreement in direction matters more than any single p-value.</p>
+            <div class="table-scroll"><table id="robust-table"></table></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DRIVERS ================= -->
+    <section class="block" id="drivers">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">05 · Drivers</div>
+          <h2>Rain, or something else?</h2>
+          <p>Open-water area is set against satellite rainfall over the catchment (PERSIANN-CDR, 2015–2026). If rain explains the swings, the year term should add little. A residual trend points to upstream water capture and management.</p>
+        </div>
+        <div class="grid g2">
+          <div class="card"><h3>Open water vs antecedent rainfall</h3><div id="scatter-chart" class="chart"></div></div>
+          <div class="card"><h3>Rainfall per hydrological year</h3><div id="rain-chart" class="chart"></div></div>
+          <div class="card"><h3>What explains open-water area?</h3><div id="r2-chart" class="chart short"></div><p class="small muted" id="r2-text"></p></div>
+          <div class="card"><h3>Gradient boosting + SHAP</h3><div id="shap-chart" class="chart short"></div><p class="small muted" id="shap-text"></p></div>
+        </div>
+        <div class="note" id="drivers-note"></div>
+      </div>
+    </section>
+
+    <!-- ================= FORTY YEARS ================= -->
+    <section class="block" id="forty">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">06 · Forty years of water</div>
+          <h2>From the dams to today</h2>
+          <p>Seasonal lake water area from Landsat 5, 7 and 8 (1984–2021) continued with the Sentinel-2 maps (2017–2026). The five overlapping years check that the two sensors agree.</p>
+        </div>
+        <div class="controls"><div class="seg" id="ls-season"><button data-v="wet" class="on">Wet seasons</button><button data-v="dry">Dry seasons</button></div></div>
+        <div class="card"><div id="landsat-chart" class="chart tall"></div><p class="small muted" id="landsat-text"></p></div>
+        <div class="grid g2" style="margin-top:18px">
+          <div class="card"><h3>Submerged vegetation (<i>Potamogeton</i> beds)</h3><div id="sav-chart" class="chart short"></div><p class="small muted" id="sav-text"></p></div>
+          <div class="card"><h3>Sensor agreement 2017–2021</h3><div id="overlap-chart" class="chart short"></div><p class="small muted" id="overlap-text"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MODEL LAB ================= -->
+    <section class="block" id="lab">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">07 · Model lab</div>
+          <h2>Do foundation models need fewer labels?</h2>
+          <p>Every model sees the same spatially held-out test chips, the same label fractions and three seeds. Scores are against weak labels on 12 test locations × 20 seasons. Hand-labelled gold points come next.</p>
+        </div>
+        <div class="grid g2">
+          <div class="card span2"><h3>Label-efficiency curves</h3><div id="lec-chart" class="chart tall"></div></div>
+          <div class="card span2"><h3>Results at 100 % of training chips</h3><div class="table-scroll"><table id="model-table"></table></div><p class="small muted" id="model-note"></p></div>
+          <div class="card"><h3>Per-class F1</h3><div id="f1-chart" class="chart"></div></div>
+          <div class="card"><h3>Confusion matrix · <span id="cm-model"></span></h3><div id="cm-chart" class="chart"></div></div>
+        </div>
+        <div class="card" style="margin-top:18px">
+          <h3>Same chip, different models</h3>
+          <div class="controls" style="margin-top:10px"><select class="btn" id="chip-select"></select><span class="small muted" id="chip-caption"></span></div>
+          <div class="chips" id="chips"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= METHOD ================= -->
+    <section class="block" id="method">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">08 · Method</div>
+          <h2>From raw scenes to habitat maps</h2>
+          <p>The pipeline is reproducible end to end from open data: <span class="mono">make data → make labels → make baselines → make gpu → make analysis → make web</span>.</p>
+        </div>
+        <div class="pipeline reveal">
+          <div class="step"><h4>Composites</h4><p>Sentinel-2 L2A COGs, SCL cloud mask (60 m dilation), wet/dry medians per year, 10 bands.</p></div>
+          <div class="step"><h4>Weak labels</h4><p>Agreement of WorldCover 2020+2021, JRC water occurrence, DEM and seasonal NDVI/MNDWI rules.</p></div>
+          <div class="step"><h4>Chips &amp; split</h4><p>224 px chips; 80 locations split 70/15/15 by spatial block, stratified by wetland share.</p></div>
+          <div class="step"><h4>Models</h4><p>RF (indices), RF (AlphaEarth), U-Net, Prithvi-EO-2.0-300M, TerraMind-base.</p></div>
+          <div class="step"><h4>Maps &amp; change</h4><p>20 seasonal maps, areas, Mann–Kendall/Sen, transitions, inundation frequency.</p></div>
+          <div class="step"><h4>Attribution</h4><p>Rainfall regression, unique R², gradient boosting + SHAP; Landsat 1984–2021.</p></div>
+        </div>
+        <div class="grid g2" style="margin-top:22px">
+          <div class="card"><h3>Habitat classes and weak-label rules</h3><div class="table-scroll"><table id="rules-table"></table></div></div>
+          <div class="card"><h3>Data</h3><div class="table-scroll"><table id="data-table"></table></div></div>
+        </div>
+        <div class="card" style="margin-top:18px" id="limits">
+          <h3>Limitations</h3>
+          <ul class="dots" id="limits-list"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap grid g3">
+      <div>
+        <div class="author">
+          <div class="avatar">ES</div>
+          <div><b>Emna Saada</b><div class="muted small">Geoinformatics engineering student · Bizerte, Tunisia</div>
+            <div class="small"><a href="https://github.com/emna-saada">GitHub</a> · <a href="https://github.com/emna-saada/ichkeul-habitat-time-machine">Source code</a> · <a href="./label.html">Gold-labelling tool</a></div></div>
+        </div>
+      </div>
+      <div class="small muted" id="credits"></div>
+      <div class="small muted" id="sources"></div>
+    </div>
+  </footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

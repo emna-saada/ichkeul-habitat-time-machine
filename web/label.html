@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gold Point Labeller</title>
+  <meta name="theme-color" content="#071014" />
+  <style>
+    .lab { max-width: 1180px; margin: 0 auto; padding: 84px 20px 40px; }
+    .views { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .views figure { margin: 0; }
+    .views canvas { width: 100%; aspect-ratio: 1; border-radius: 10px; border: 1px solid var(--line); image-rendering: pixelated; display: block; }
+    .views figcaption { font-size: 0.78rem; color: var(--muted); margin-top: 4px; text-align: center; }
+    .keys { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
+    .keys button { display: flex; gap: 8px; align-items: center; text-align: left; }
+    .keys .sw { width: 14px; height: 14px; border-radius: 4px; flex: none; }
+    .keys kbd { margin-left: auto; color: var(--muted); font-size: 0.75rem; }
+    .progress { height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; margin: 10px 0 18px; }
+    .progress i { display: block; height: 100%; background: var(--accent); }
+    @media (max-width: 760px) { .views, .keys { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  </style>
+</head>
+<body>
+  <nav class="nav"><a class="brand" href="./index.html">Ichkeul <span>Habitat Time Machine</span></a>
+    <div class="links"><a href="./index.html">← Back to the study</a></div></nav>
+  <div class="lab">
+    <div class="kicker">Accuracy assessment</div>
+    <h2>Gold-point labeller</h2>
+    <p class="muted" style="max-width:780px">Label each point from the imagery alone: the map class is hidden. The cross marks the 10 m pixel, and each crop covers 640 m. Use the dry-season view to tell evergreen woodland and halophytic scrub from senescent marsh. Answers are saved in this browser. Export the JSON when finished, save it as <span class="mono">results/gold_labels.json</span>, then run <span class="mono">python -m ichkeul.gold score</span>.</p>
+    <div class="controls">
+      <button class="btn" id="prev">← Previous</button>
+      <button class="btn" id="next">Next →</button>
+      <button class="btn" id="skip">Unsure (skip)</button>
+      <span class="muted small" id="status"></span>
+      <span style="margin-left:auto"></span>
+      <button class="btn" id="export">Export JSON</button>
+    </div>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="views">
+      <figure><canvas id="c0" width="64" height="64"></canvas><figcaption>Wet · true colour</figcaption></figure>
+      <figure><canvas id="c1" width="64" height="64"></canvas><figcaption>Wet · SWIR-NIR-red</figcaption></figure>
+      <figure><canvas id="c2" width="64" height="64"></canvas><figcaption>Dry · true colour</figcaption></figure>
+      <figure><canvas id="c3" width="64" height="64"></canvas><figcaption>Dry · SWIR-NIR-red</figcaption></figure>
+    </div>
+    <div class="keys" id="keys"></div>
+    <p class="small muted" id="coords" style="margin-top:14px"></p>
+  </div>
+  <script type="module" src="/src/label.ts"></script>
+</body>
+</html>
