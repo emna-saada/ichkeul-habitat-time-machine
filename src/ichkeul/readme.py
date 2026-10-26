@@ -13,7 +13,8 @@ def build():
     cards = "\n".join(f"| **{h['value']}** | {h['label']} — {h['sub']} |" for h in s["headline"])
     hl = "| | Key results |\n|---|---|\n" + cards + "\n\n![Hero](docs/img/hero.jpg)\n"
     m = s["models"]
-    rows = "\n".join(f"| {r['label']} | {r['miou_mean']:.3f} ± {r['miou_std']:.3f} | {r['oa_mean'] * 100:.1f} % | {r['f1_mean']:.3f} | {r['n']} |"
+    mm = lambda r: f"{r['miou_matched']:.3f}" if r.get("miou_matched") is not None else "–"  # noqa: E731
+    rows = "\n".join(f"| {r['label']} | {r['miou_mean']:.3f} ± {r['miou_std']:.3f} | {mm(r)} | {r['oa_mean'] * 100:.1f} % | {r['f1_mean']:.3f} | {r['n']} |"
                      for r in sorted(m["rows"], key=lambda r: -r["miou_mean"]))
     rob = s["robustness"]
     from .export import MODEL_LABEL
@@ -36,8 +37,8 @@ PERSIANN-CDR rainfall ──► OLS unique R², gradient boosting + SHAP      La
 
 **Models** (test chips at 12 held-out locations × 20 seasons, scored against weak labels, 100 % of training chips):
 
-| Model | mIoU | Overall accuracy | Macro F1 | Seeds |
-|---|---|---|---|---|
+| Model | mIoU (all test seasons) | mIoU 2017–25 (matched) | Overall accuracy | Macro F1 | Seeds |
+|---|---|---|---|---|---|
 {rows}
 
 {"> Prithvi-EO-2.0 and TerraMind runs are implemented and smoke-tested (`kaggle/train_gpu.py`) and run with `make gpu-upload gpu-push gpu-wait gpu-fetch`. Their rows, the label-efficiency curves and the maps update automatically." if m["gpu_pending"] else ""}

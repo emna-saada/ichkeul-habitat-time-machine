@@ -92,13 +92,13 @@ def train_chips() -> list[str]:
     return [ln.strip() for ln in (CHIPS / "train.txt").read_text().splitlines() if ln.strip()]
 
 
-def run(kind: str) -> list[dict]:
+def run(kind: str, fractions: list[float] = FRACTIONS) -> list[dict]:
     t0 = time.time()
-    pool, Xte, yte, _ = build_tables(kind)
+    pool, Xte, yte, gte = build_tables(kind)
     print(f"{kind}: pools {len(pool)} chips, test px {len(yte)} ({time.time()-t0:.0f}s)", flush=True)
     chips = train_chips()
     rows = []
-    for frac in FRACTIONS:
+    for frac in fractions:
         for seed in SEEDS:
             sel = [c for c in fraction_chips(chips, frac, seed) if c in pool]
             X = np.concatenate([pool[c][0] for c in sel])
@@ -108,14 +108,20 @@ def run(kind: str) -> list[dict]:
             rf.fit(X, y)
             pred = rf.predict(Xte)
             sc = scores(confusion(yte, pred))
+            by_season = {f"{g // 10}_{'wet' if g % 10 == 0 else 'dry'}": confusion(yte[gte == g], pred[gte == g]).tolist()
+                         for g in np.unique(gte)}
             rows.append({"model": kind, "fraction": frac, "seed": seed, "n_train_chips": len(sel),
                          "n_train_px": int(len(y)), **{k: sc[k] for k in ("miou", "overall_accuracy", "macro_f1",
-                                                                         "kappa", "per_class_f1", "confusion")}})
+                                                                         "kappa", "per_class_f1", "confusion")},
+                         "confusion_by_season": by_season})
             print(f"  {kind} frac={frac:.2f} seed={seed} chips={len(sel)} mIoU={sc['miou']:.3f} "
                   f"OA={sc['overall_accuracy']:.3f}", flush=True)
             if frac == 1.0 and seed == 0:
                 _predict_full(kind, rf)
     out = RESULTS / f"runs_{kind}.json"
+    if out.exists() and fractions != FRACTIONS:  # partial re-run: replace only those fractions
+        old = [r for r in json.loads(out.read_text()) if r["fraction"] not in fractions]
+        rows = sorted(old + rows, key=lambda r: (r["fraction"], r["seed"]))
     out.write_text(json.dumps(rows, indent=1))
     return rows
 
@@ -137,6 +143,10 @@ def _predict_full(kind: str, rf):
 
 
 if __name__ == "__main__":
-    import sys
-    for k in sys.argv[1:] or ["rf_indices", "rf_alphaearth"]:
-        run(k)
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("kinds", nargs="*", default=["rf_indices", "rf_alphaearth"])
+    ap.add_argument("--fractions", type=float, nargs="*", default=FRACTIONS)
+    a = ap.parse_args()
+    for k in a.kinds:
+        run(k, a.fractions)

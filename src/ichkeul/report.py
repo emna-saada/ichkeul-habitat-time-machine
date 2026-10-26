@@ -34,8 +34,12 @@ def build() -> str:
     ow, mar = d["ols"]["open_water"], d["ols"]["marsh"]
     dm = t["dry"]["marsh"]
     best = mr["best"]
-    full = sorted(mr["rows"], key=lambda r: -r["miou_mean"])
+    rank = lambda r: r["miou_matched"] if r.get("miou_matched") is not None else r["miou_mean"]  # noqa: E731
+    full = sorted(mr["rows"], key=lambda r: -rank(r))
     rf = next((r for r in full if r["model"] == "rf_indices"), None)
+    bm = rank(full[0])
+    rm = rank(rf) if rf else float("nan")
+    mapm = rank(next((r for r in full if r["model"] == an["model"]), full[0]))
     tr = an["transitions"]["dry"]["matrix_km2"]
     L = []
     w = L.append
@@ -61,9 +65,11 @@ def build() -> str:
     agree = "every classifier with full-area maps shows a decline" if all(dirs) else "classifiers disagree on the direction"
     w(f"Ichkeul's lake and marshes depend on a freshwater supply that upstream dams have cut since the 1980s. I built 20 seasonal "
       f"Sentinel-2 composites (wet Jan–Mar and dry Jul–Sep, 2017–2026) over a {an['basin_area_km2']:.0f} km² basin envelope and labelled "
-      f"eight habitat classes with weak labels from agreeing open datasets. On spatially held-out test chips the best model so far, "
-      f"{MODEL_LABEL.get(best, best)}, reaches mIoU {full[0]['miou_mean']:.3f} against weak labels, versus {rf['miou_mean']:.3f} for a Random Forest on spectral indices, "
-      f"and its maps drive the change analysis. **Open-water area follows rainfall**: season plus antecedent and previous-year rain explain "
+      f"eight habitat classes with weak labels from agreeing open datasets. On spatially held-out test chips (2017–2025, matched across models) "
+      f"the best model so far is {MODEL_LABEL.get(best, best)} with mIoU {bm:.3f} against weak labels, versus {rm:.3f} for a Random Forest on spectral indices. "
+      + ("Its maps drive the change analysis. " if best == an["model"] else
+         f"The change analysis uses {MODEL_LABEL.get(an['model'], an['model'])} (matched mIoU {mapm:.3f}), the best model that can map all 20 seasons. ")
+      + f"**Open-water area follows rainfall**: season plus antecedent and previous-year rain explain "
       f"R² = {ow['r2']:.2f}, and a time trend adds only {ow['unique_r2']['year'] * 100:.1f} % (p = {p_(ow['p']['year'])}). **Summer marsh area fell by "
       f"{-pct:.0f} %** between {cfg()['years'][0]}–{cfg()['years'][2]} and {cfg()['years'][-3]}–{cfg()['years'][-1]}, and {agree} "
       f"({per_model}). Rainfall explains almost none of the marsh variation (unique R² {mar['unique_r2']['rain_antecedent']:.3f} and "
@@ -79,11 +85,14 @@ def build() -> str:
     w(methods)
     w("\n## 4. Results\n")
     w("### 4.1 Models (test chips, weak labels)\n")
-    w("| Model | Label share | mIoU (mean ± sd) | Overall accuracy | Macro F1 | κ | Seeds |\n|---|---|---|---|---|---|---|")
+    w("| Model | Label share | mIoU (mean ± sd) | mIoU 2017–25 (matched) | Overall accuracy | Macro F1 | κ | Seeds |\n|---|---|---|---|---|---|---|---|")
     for r in sorted(mr["curves"], key=lambda r: (r["model"], r["fraction"])):
-        w(f"| {r['label']} | {r['fraction'] * 100:.0f} % | {r['miou_mean']:.3f} ± {r['miou_std']:.3f} | {r['oa_mean'] * 100:.1f} % | "
+        mm = f"{r['miou_matched']:.3f}" if r.get("miou_matched") is not None else "–"
+        w(f"| {r['label']} | {r['fraction'] * 100:.0f} % | {r['miou_mean']:.3f} ± {r['miou_std']:.3f} | {mm} | {r['oa_mean'] * 100:.1f} % | "
           f"{r['f1_mean']:.3f} | {r['kappa_mean']:.3f} | {r['n']} |")
     w("")
+    w("AlphaEarth embeddings are published up to 2025, so that baseline is tested on 2017–2025 seasons only. The *matched* column scores "
+      "every model on exactly those seasons, and it is the fair comparison across all baselines.\n")
     w("Per-class F1 at 100 % of training chips:\n")
     w("| Class | " + " | ".join(r["label"] for r in full) + " |\n|---|" + "---|" * len(full))
     for i, c in enumerate(classes):

@@ -448,12 +448,12 @@ function lab(site: Site) {
     series,
   });
   const full = [...M.rows].sort((a, b) => b.miou_mean - a.miou_mean);
-  $("model-table").innerHTML = `<tr><th>Model</th><th class="r">mIoU</th><th class="r">Overall acc.</th><th class="r">Macro F1</th><th class="r">κ</th><th class="r">Seeds</th></tr>` +
-    full.map((r) => `<tr class="${r.model === M.best ? "best" : ""}"><td>${r.label}</td><td class="r">${fmt(r.miou_mean, 3)} ± ${fmt(r.miou_std, 3)}</td>
+  $("model-table").innerHTML = `<tr><th>Model</th><th class="r">mIoU</th><th class="r">mIoU 2017–25<br>(matched)</th><th class="r">Overall acc.</th><th class="r">Macro F1</th><th class="r">κ</th><th class="r">Seeds</th></tr>` +
+    full.map((r) => `<tr class="${r.model === M.best ? "best" : ""}"><td>${r.label}</td><td class="r">${fmt(r.miou_mean, 3)} ± ${fmt(r.miou_std, 3)}</td><td class="r">${fmt((r as any).miou_matched, 3)}</td>
       <td class="r">${fmt(r.oa_mean * 100, 1)} %</td><td class="r">${fmt(r.f1_mean, 3)}</td><td class="r">${fmt(r.kappa_mean, 3)}</td><td class="r">${r.n}</td></tr>`).join("");
   $("model-note").innerHTML = (M.gpu_pending
     ? "GPU runs (U-Net, Prithvi-EO-2.0, TerraMind) are queued on a Kaggle T4. Rows appear here as soon as their results are added to <span class=\"mono\">results/gpu/</span>. "
-    : "") + `Test set: ${site.meta.test_locations} held-out 2.24 km chip locations × 20 seasons, every second pixel; mean ± standard deviation over seeds.` +
+    : "") + `Test set: ${site.meta.test_locations} held-out 2.24 km chip locations × 20 seasons, every second pixel; mean ± standard deviation over seeds. AlphaEarth embeddings stop at 2025, so that baseline is tested on 2017–2025 only; the matched column scores every model on those same seasons.` +
     (M.compute.length ? `<br/>Compute: ${M.compute.join("; ")}` : "");
   chart("f1-chart").render({
     tooltip: tooltip({ trigger: "axis", valueFormatter: (v: number) => fmt(v, 3) }),

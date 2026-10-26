@@ -85,6 +85,20 @@ def basin_geojson() -> dict:
 
 
 # ------------------------------------------------------------------ models
+MATCHED_LAST_YEAR = 2025  # last year with every input (AlphaEarth embeddings) available
+
+
+def _matched_miou(r: dict) -> float | None:
+    """mIoU on test seasons up to MATCHED_LAST_YEAR, so all models share one test set."""
+    from .metrics import scores
+    if r.get("confusion_by_season"):
+        cm = sum(np.array(v) for k, v in r["confusion_by_season"].items() if int(k.split("_")[0]) <= MATCHED_LAST_YEAR)
+        return scores(np.asarray(cm))["miou"]
+    if r["model"] == "rf_alphaearth":  # its test set is already restricted to these years
+        return scores(np.array(r["confusion"]))["miou"]
+    return None
+
+
 def model_results() -> dict:
     runs = []
     for f in RESULTS.glob("runs_rf_*.json"):
@@ -92,7 +106,7 @@ def model_results() -> dict:
             runs.append({"model": r["model"], "fraction": r["fraction"], "seed": r["seed"], "miou": r["miou"],
                          "oa": r["overall_accuracy"], "f1": r["macro_f1"], "kappa": r["kappa"],
                          "per_class_f1": r["per_class_f1"], "confusion": r["confusion"],
-                         "n_train_chips": r["n_train_chips"]})
+                         "n_train_chips": r["n_train_chips"], "matched": _matched_miou(r)})
     from .metrics import scores
     for f in (RESULTS / "gpu").glob("**/runs_gpu.jsonl"):
         for ln in f.read_text().splitlines():
@@ -101,7 +115,7 @@ def model_results() -> dict:
             runs.append({"model": r["model"], "fraction": r["fraction"], "seed": r["seed"], "miou": sc["miou"],
                          "oa": sc["overall_accuracy"], "f1": sc["macro_f1"], "kappa": sc["kappa"],
                          "per_class_f1": sc["per_class_f1"], "confusion": r["confusion"],
-                         "n_train_chips": r["n_train_chips"]})
+                         "n_train_chips": r["n_train_chips"], "matched": _matched_miou(r)})
     groups = defaultdict(list)
     for r in {(r["model"], r["fraction"], r["seed"]): r for r in runs}.values():
         groups[(r["model"], r["fraction"])].append(r)
@@ -113,9 +127,12 @@ def model_results() -> dict:
                      "oa_mean": float(np.mean([r["oa"] for r in rs])), "oa_std": float(np.std([r["oa"] for r in rs])),
                      "f1_mean": float(np.mean([r["f1"] for r in rs])), "kappa_mean": float(np.mean([r["kappa"] for r in rs])),
                      "per_class_f1": np.mean([r["per_class_f1"] for r in rs], 0).round(4).tolist(),
-                     "n_train_chips": int(np.mean([r["n_train_chips"] for r in rs]))})
+                     "n_train_chips": int(np.mean([r["n_train_chips"] for r in rs])),
+                     "miou_matched": (float(np.mean([r["matched"] for r in rs]))
+                                      if all(r["matched"] is not None for r in rs) else None)})
     full = [r for r in rows if r["fraction"] == 1.0]
-    best = max(full, key=lambda r: r["miou_mean"])["model"] if full else None
+    rank = lambda r: r["miou_matched"] if r.get("miou_matched") is not None else r["miou_mean"]  # noqa: E731
+    best = max(full, key=rank)["model"] if full else None
     cm = np.sum([np.array(r["confusion"]) for r in runs if r["model"] == best and r["fraction"] == 1.0], 0) if best else []
     # Wilcoxon-style paired comparison is not meaningful with 3 seeds; report seed spread instead
     return {"rows": full, "curves": rows, "best": best, "confusion": np.asarray(cm).tolist(), "confusion_model": best,
