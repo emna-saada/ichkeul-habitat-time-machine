@@ -1,12 +1,17 @@
-import "@fontsource-variable/inter";
-import "@fontsource-variable/fraunces";
+import "@fontsource-variable/crimson-pro";
+import "@fontsource-variable/crimson-pro/wght-italic.css";
+import "@fontsource-variable/atkinson-hyperlegible-next";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
 import "./style.css";
-import { C, axis, chart, legend, tooltip } from "./charts";
-import { MODEL_COLOR, MODEL_LABEL, dataUrl, fmt, loadSite, pval, signed, type Season, type Site } from "./data";
+import { C, HATCH, axis, chart, legend, tooltip } from "./charts";
+import { MODEL_COLOR, MODEL_DASH, MODEL_LABEL, MODEL_SYMBOL, dataUrl, fmt, loadSite, pval, signed, type Season, type Site } from "./data";
 import { Swipe, addBasin, addLabels, makeMap, onReady, preload, setImage } from "./maps";
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14l12-7z"/></svg>';
+const PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
 const SEASON_LABEL: Record<Season, string> = { wet: "Wet season · Jan–Mar", dry: "Dry season · Jul–Sep" };
 const WETLAND_KEYS = ["perm_water", "seas_water", "fresh_marsh", "halo_marsh", "saline_flat"];
 const PRETTY: Record<string, string> = {
@@ -19,7 +24,7 @@ function segmented(id: string, onChange: (v: string) => void) {
   const el = $(id);
   el.querySelectorAll("button").forEach((b) =>
     b.addEventListener("click", () => {
-      el.querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));
+      el.querySelectorAll("button").forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", String(x === b)); });
       onChange(b.dataset.v!);
     }));
 }
@@ -58,13 +63,14 @@ function hero(site: Site) {
   const wet = site.seasons.filter((s) => s.season === "wet");
   preload(wet.map((s) => s.map));
   $("hero-stats").innerHTML = site.headline.slice(0, 4)
-    .map((h) => `<div class="hero-stat"><span>${h.label}</span><b class="num">${h.value}</b><span>${h.sub}</span></div>`).join("");
-  $("hero-legend").innerHTML = `<div class="legend">${site.classes.map((c) =>
-    `<label><span class="sw" style="background:${c.color}"></span>${c.name}</label>`).join("")}</div>`;
+    .map((h) => `<li><span class="v num ${/^[-−]/.test(h.value) ? "neg" : ""}">${h.value.replace(/^-/, "−")}</span><span class="l">${h.label}</span><span class="d">${h.sub.replace(/-(\d)/g, "−$1")}</span></li>`).join("");
+  $("hero-legend").innerHTML = site.classes.map((c) =>
+    `<label><span class="sw" style="background:${c.color}"></span>${c.name}</label>`).join("");
+  $("hero-date").textContent = `Results ${site.meta.generated}`;
   onReady(map, () => {
     const [w, s, e, n] = site.meta.bounds;
-    map.fitBounds([[w, s], [e, n]], { padding: { top: 60, bottom: 40, left: innerWidth > 900 ? innerWidth * 0.3 : 10, right: 10 }, duration: 0 });
-    setImage(map, "h0", wet[0].map, site, 0.82);
+    map.fitBounds([[w, s], [e, n]], { padding: 4, duration: 0 });
+    setImage(map, "h0", wet[0].map, site, 0.9);
     setImage(map, "h1", wet[0].map, site, 0);
     for (const id of ["h0", "h1"]) map.setPaintProperty(id, "raster-opacity-transition", { duration: 900, delay: 0 });
     addLabels(map);
@@ -74,7 +80,7 @@ function hero(site: Site) {
       const back = 1 - front;
       setImage(map, `h${back}`, s.map, site);
       setTimeout(() => {
-        map.setPaintProperty(`h${back}`, "raster-opacity", 0.82);
+        map.setPaintProperty(`h${back}`, "raster-opacity", 0.9);
         map.setPaintProperty(`h${front}`, "raster-opacity", 0);
         front = back;
       }, 120);
@@ -100,12 +106,13 @@ function context(site: Site) {
       const b = site.birds[p.dataIndex];
       return `<b>${b.label}</b><br/>${b.kind === "upper bound" ? "fewer than " : "~"}${b.value.toLocaleString()} waterbirds<br/><span style="color:${C.muted}">${b.source}</span>`;
     } }),
-    xAxis: { type: "value", ...axis({ axisLabel: { color: C.muted, formatter: (v: number) => `${v / 1000}k` } }) },
-    yAxis: { type: "category", inverse: true, data: site.birds.map((b) => b.label), ...axis({ splitLine: { show: false } }) },
+    xAxis: { type: "value", ...axis({ axisLabel: { color: C.ink2, fontSize: 11, formatter: (v: number) => `${v / 1000}k` } }) },
+    yAxis: { type: "category", inverse: true, data: site.birds.map((b) => b.label), ...axis({ splitLine: { show: false }, axisLabel: { color: C.ink2, fontSize: 11 } }) },
     series: [{
       type: "bar", barWidth: 14, data: site.birds.map((b, i) => ({
-        value: b.value, itemStyle: { color: i === 2 ? C.danger : i >= 3 ? "#56b4e9" : C.accent, borderRadius: 4 } })),
-      label: { show: true, position: "right", color: C.text, fontSize: 11,
+        value: b.value, itemStyle: { color: i === 2 ? C.danger : i >= 3 ? C.water : C.accent, borderRadius: 0,
+          ...(i >= 3 ? { decal: HATCH } : {}) } })),
+      label: { show: true, position: "right", color: C.text, fontSize: 11, fontFamily: "IBM Plex Mono, monospace",
         formatter: (p: any) => (site.birds[p.dataIndex].kind === "upper bound" ? "< " : "") + `${Math.round(p.value / 1000)}k` },
     }],
   });
@@ -120,7 +127,7 @@ function timeMachine(site: Site) {
   const years = site.meta.years;
   const st = { mode: "swipe", season: "wet" as Season, year: years[years.length - 1], yearB: years[0], opacity: 0.9, hidden: new Set<number>() };
   const yb = $<HTMLSelectElement>("tm-yearB");
-  yb.innerHTML = years.map((y) => `<option value="${y}">Right: ${y}</option>`).join("");
+  yb.innerHTML = years.map((y) => `<option value="${y}">${y}</option>`).join("");
   yb.value = String(st.yearB);
   const slider = $<HTMLInputElement>("tm-year");
   slider.min = String(years[0]); slider.max = String(years[years.length - 1]); slider.value = String(st.year);
@@ -157,34 +164,38 @@ function timeMachine(site: Site) {
     const max = Math.max(...site.classes.map((c) => Number(row[c.key])));
     legendEl.innerHTML = site.classes.map((c) => {
       const v = Number(row[c.key]);
-      return `<label data-id="${c.id}" style="opacity:${st.hidden.has(c.id) ? 0.35 : 1}"><span class="sw" style="background:${c.color}"></span>
+      return `<label data-id="${c.id}" role="button" tabindex="0" aria-pressed="${!st.hidden.has(c.id)}"><span class="sw" style="background:${c.color}"></span>
         <span style="flex:1">${c.name}<div class="bar"><i style="width:${(100 * v) / max}%;background:${c.color}"></i></div></span>
         <span class="area">${fmt(v, 1)} km²</span></label>`;
     }).join("");
-    legendEl.querySelectorAll("label").forEach((l) => l.addEventListener("click", () => {
-      const id = Number((l as HTMLElement).dataset.id);
-      st.hidden.has(id) ? st.hidden.delete(id) : st.hidden.add(id);
-      update();
-    }));
+    legendEl.querySelectorAll("label").forEach((l) => {
+      const toggle = () => {
+        const id = Number((l as HTMLElement).dataset.id);
+        st.hidden.has(id) ? st.hidden.delete(id) : st.hidden.add(id);
+        update();
+      };
+      l.addEventListener("click", toggle);
+      l.addEventListener("keydown", (e) => { const k = (e as KeyboardEvent).key; if (k === "Enter" || k === " ") { e.preventDefault(); toggle(); } });
+    });
     const ow = Number(row.perm_water) + Number(row.seas_water);
-    $("tm-meta").innerHTML = `<b>${st.year} · ${SEASON_LABEL[st.season]}</b>
-      <p class="muted" style="margin:6px 0 0">Open water <b style="color:${C.text}">${fmt(ow, 1)} km²</b> ·
-      ${e.scenes} scenes · ${fmt(e.obs, 1)} clear observations per pixel on average.</p>
-      <p class="muted small" style="margin:6px 0 0">Scenes: ${e.dates.map((d) => `${d.slice(6)}/${d.slice(4, 6)}`).join(", ")}</p>
-      <p class="muted small" style="margin:6px 0 0">Map model: ${site.meta.map_model_label}</p>`;
+    $("tm-meta").innerHTML = `<h3>${st.year} · ${SEASON_LABEL[st.season]}</h3>
+      <p>Open water <b class="num">${fmt(ow, 1)} km²</b>. Composite of ${e.scenes} scenes, ${fmt(e.obs, 1)} clear observations per pixel on average.</p>
+      <p class="small muted">Acquisitions (day/month): <span class="mono">${e.dates.map((d) => `${d.slice(6)}/${d.slice(4, 6)}`).join(" ")}</span></p>
+      <p class="small muted">Classifier: ${site.meta.map_model_label}</p>`;
     // warm the cache for neighbours
     preload(site.seasons.filter((s) => Math.abs(s.year - st.year) <= 1 && s.season === st.season).flatMap((s) => [s.s2, s.map]));
   }
   for (const m of [a, b]) onReady(m, () => { addLabels(m); addBasin(m, site); ready++; update(); });
-  segmented("tm-mode", (v) => { st.mode = v; yb.hidden = v !== "years"; update(); });
+  segmented("tm-mode", (v) => { st.mode = v; $("tm-yearB-wrap").hidden = v !== "years"; update(); });
   segmented("tm-season", (v) => { st.season = v as Season; update(); });
   slider.addEventListener("input", () => { st.year = Number(slider.value); update(); });
   yb.addEventListener("change", () => { st.yearB = Number(yb.value); update(); });
   $<HTMLInputElement>("tm-opacity").addEventListener("input", (e) => { st.opacity = Number((e.target as HTMLInputElement).value); update(); });
   let timer = 0;
   $("tm-play").addEventListener("click", () => {
-    if (timer) { clearInterval(timer); timer = 0; $("tm-play").textContent = "▶"; return; }
-    $("tm-play").textContent = "❚❚";
+    const play = $("tm-play");
+    if (timer) { clearInterval(timer); timer = 0; play.innerHTML = PLAY; play.setAttribute("aria-label", "Play through the years"); return; }
+    play.innerHTML = PAUSE; play.setAttribute("aria-label", "Pause");
     timer = window.setInterval(() => {
       const i = years.indexOf(st.year);
       st.year = years[(i + 1) % years.length];
@@ -201,7 +212,7 @@ function breathing(site: Site) {
   const render = () => {
     const L = site.layers[cur];
     setImage(map, "layer", L.url, site, 1, "labels");
-    $("br-legend").innerHTML = `<h3 style="font-size:1rem">${L.title}</h3>
+    $("br-legend").innerHTML = `<h3>${L.title}</h3>
       <div class="ramp" style="background:linear-gradient(90deg,${L.ramp!.join(",")})"></div>
       <div class="ramp-labels">${L.labels!.map((l) => `<span>${l}</span>`).join("")}</div>`;
     const inn = site.inundation;
@@ -214,7 +225,7 @@ function breathing(site: Site) {
       trend_mndwi_wet: `Pixels with a significant (|z| > 1.96) 2017–2026 trend in wet-season MNDWI: <b>${fmt(pt.mndwi_wet.sig_decrease_km2, 1)} km²</b> getting drier, <b>${fmt(pt.mndwi_wet.sig_increase_km2, 1)} km²</b> wetter.`,
       trend_ndvi_dry: `Significant dry-season NDVI trend: <b>${fmt(pt.ndvi_dry.sig_decrease_km2, 1)} km²</b> browning, <b>${fmt(pt.ndvi_dry.sig_increase_km2, 1)} km²</b> greening.`,
     };
-    $("br-stats").innerHTML = `<p class="muted" style="margin:0">${info[cur]}</p>`;
+    $("br-stats").innerHTML = `<p style="margin:0">${info[cur]}</p>`;
   };
   let ok = false;
   onReady(map, () => { addLabels(map); addBasin(map, site); ok = true; render(); });
@@ -238,7 +249,7 @@ function change(site: Site) {
       yAxis: { type: "value", name: "km²", ...axis() },
       series: site.classes.map((c, i) => ({
         name: c.name, type: "line", stack: "a", smooth: 0.25, symbol: "circle", symbolSize: 5,
-        lineStyle: { width: 1, color: c.color }, itemStyle: { color: c.color }, areaStyle: { opacity: 0.85, color: c.color },
+        lineStyle: { width: 1, color: "#FBF9F4" }, itemStyle: { color: c.color }, areaStyle: { opacity: 0.92, color: c.color },
         emphasis: { focus: "series" }, data: rows.map((r) => Number(r[c.key])),
         ...(i === 0 ? { markLine: { symbol: "none", silent: true, lineStyle: { color: C.danger, type: "dashed" },
           label: { color: C.danger, formatter: "Jan 2020: < 6,000 waterbirds", fontSize: 11 },
@@ -276,7 +287,7 @@ function change(site: Site) {
         type: "sankey", left: 6, right: 120, top: 10, bottom: 10, nodeWidth: 12, nodeGap: 9, draggable: false,
         data: nodes.filter((n) => used.has(n.name)), links,
         label: { color: C.text, fontSize: 11, formatter: (p: any) => p.name.replace(" ·", "  ") },
-        lineStyle: { color: "gradient", opacity: 0.38, curveness: 0.5 }, emphasis: { focus: "adjacency" },
+        lineStyle: { color: "gradient", opacity: 0.45, curveness: 0.5 }, emphasis: { focus: "adjacency" },
       }],
     });
   };
@@ -286,7 +297,7 @@ function change(site: Site) {
   const mine = rob[site.meta.map_model];
   const pct = 100 * (mine.dry_marsh_last3 / mine.dry_marsh_first3 - 1);
   $("change-title").textContent = pct < 0 ? `Summer marshes lost ${fmt(-pct, 0)} % in a decade` : "What the lake and marshes gained and lost";
-  const cell = (t: any) => `<td class="r">${signed(t.sen_slope, 2)} <span class="small muted">(p ${pval(t.p)})</span></td>`;
+  const cell = (t: any) => `<td class="r">${signed(t.sen_slope, 2)} <span class="muted">(p ${pval(t.p)})</span></td>`;
   $("robust-table").innerHTML = `<tr><th>Map model</th><th class="r">Summer marsh</th><th class="r">Summer open water</th><th class="r">Winter open water</th><th class="r">Summer cropland</th><th class="r">Woodland (stable?)</th><th class="r">Built (stable?)</th></tr>` +
     Object.entries(rob).map(([m, r]) => `<tr class="${m === site.meta.map_model ? "best" : ""}"><td>${MODEL_LABEL[m] ?? m}${m === site.meta.map_model ? " · used for maps" : ""}</td>
       ${cell(r.marsh.dry)}${cell(r.open_water.dry)}${cell(r.open_water.wet)}${cell(r.crop_grass.dry)}${cell(r.shrub_wood.dry)}${cell(r.built.dry)}</tr>`).join("") +
@@ -298,8 +309,8 @@ function drivers(site: Site) {
   const d = site.drivers;
   const table = d.table as any[];
   const ser = (s: Season, color: string) => ({
-    name: s === "wet" ? "Wet seasons (rain Sep–Feb)" : "Dry seasons (rain Sep–Jun)", type: "scatter", symbolSize: 11,
-    itemStyle: { color, borderColor: "#071014", borderWidth: 1 },
+    name: s === "wet" ? "Wet seasons (rain Sep–Feb)" : "Dry seasons (rain Sep–Jun)", type: "scatter", symbolSize: s === "wet" ? 11 : 13,
+    symbol: s === "wet" ? "circle" : "diamond", itemStyle: { color, borderColor: C.paper, borderWidth: 1.5 },
     label: { show: true, position: "top", color: C.muted, fontSize: 9, formatter: (p: any) => String(p.value[2]).slice(2) },
     data: table.filter((r) => r.season === s).map((r) => [r.rain_antecedent, r.open_water, r.year]),
   });
@@ -307,7 +318,7 @@ function drivers(site: Site) {
     const p = d.per_season.open_water[s];
     const xs = table.filter((r) => r.season === s).map((r) => r.rain_antecedent);
     const x0 = Math.min(...xs), x1 = Math.max(...xs);
-    return { name: `fit ${s}`, type: "line", symbol: "none", lineStyle: { color, type: "dashed", width: 1.5 }, tooltip: { show: false },
+    return { name: `fit ${s}`, type: "line", symbol: "none", lineStyle: { color, type: s === "wet" ? "solid" : "dashed", width: 1.5 }, tooltip: { show: false },
       data: [[x0, p.intercept + (p.slope_km2_per_100mm / 100) * x0], [x1, p.intercept + (p.slope_km2_per_100mm / 100) * x1]] };
   };
   chart("scatter-chart").render({
@@ -316,7 +327,7 @@ function drivers(site: Site) {
     grid: { left: 52, right: 18, top: 40, bottom: 44 },
     xAxis: { type: "value", name: "antecedent rainfall (mm)", nameLocation: "middle", nameGap: 28, scale: true, ...axis() },
     yAxis: { type: "value", name: "open water km²", scale: true, ...axis() },
-    series: [ser("wet", "#56b4e9"), ser("dry", C.warn), line("wet", "#56b4e9"), line("dry", C.warn)],
+    series: [ser("wet", C.water), ser("dry", C.warn), line("wet", C.water), line("dry", C.warn)],
   });
   const rain = site.rain.filter((r) => r.rain_hydro_year != null);
   const mean = rain.reduce((s, r) => s + (r.rain_hydro_year ?? 0), 0) / rain.length;
@@ -326,9 +337,10 @@ function drivers(site: Site) {
     xAxis: { type: "category", data: rain.map((r) => `${r.year - 1}/${String(r.year).slice(2)}`), ...axis() },
     yAxis: { type: "value", name: "mm (Sep–Aug)", ...axis() },
     series: [{ type: "bar", barWidth: "55%", data: rain.map((r) => ({ value: r.rain_hydro_year,
-      itemStyle: { color: (r.rain_hydro_year ?? 0) < mean * 0.85 ? C.danger : "#56b4e9", borderRadius: [4, 4, 0, 0] } })),
+      itemStyle: (r.rain_hydro_year ?? 0) < mean * 0.85 ? { color: C.danger, decal: HATCH } : { color: C.water } })),
       markLine: { symbol: "none", silent: true, lineStyle: { color: C.muted, type: "dashed" },
-        label: { color: C.muted, formatter: `mean ${fmt(mean, 0)} mm`, fontSize: 11, position: "insideEndTop" }, data: [{ yAxis: mean }] } }],
+        label: { color: C.ink2, formatter: `mean ${fmt(mean, 0)} mm`, fontSize: 11, position: "insideStartTop",
+          backgroundColor: C.paper, padding: [2, 6], fontFamily: "IBM Plex Mono, monospace" }, data: [{ yAxis: mean }] } }],
   });
   const ols = d.ols.open_water;
   const ur = ols.unique_r2;
@@ -339,7 +351,7 @@ function drivers(site: Site) {
     xAxis: { type: "value", max: 1, ...axis() },
     yAxis: { type: "category", inverse: true, data: ["Full model R²", ...Object.keys(ur).map((k) => lab[k])], ...axis({ splitLine: { show: false } }) },
     series: [{ type: "bar", barWidth: 14, data: [{ value: ols.r2, itemStyle: { color: C.accent } },
-      ...Object.values(ur).map((v: any) => ({ value: v, itemStyle: { color: "#56b4e9" } }))],
+      ...Object.values(ur).map((v: any) => ({ value: v, itemStyle: { color: C.water } }))],
       label: { show: true, position: "right", color: C.text, fontSize: 11, formatter: (p: any) => fmt(p.value, 2) } }],
   });
   const ws = d.per_season.open_water.wet, ds = d.per_season.open_water.dry;
@@ -351,12 +363,12 @@ function drivers(site: Site) {
     grid: { left: 150, right: 40, top: 10, bottom: 30 },
     xAxis: { type: "value", name: "mean |SHAP| (km²)", nameLocation: "middle", nameGap: 22, ...axis() },
     yAxis: { type: "category", inverse: true, data: g.features.map((f: string) => flab[f]), ...axis({ splitLine: { show: false } }) },
-    series: [{ type: "bar", barWidth: 14, data: g.mean_abs_shap, itemStyle: { color: C.warn, borderRadius: 4 },
+    series: [{ type: "bar", barWidth: 14, data: g.mean_abs_shap, itemStyle: { color: C.warn },
       label: { show: true, position: "right", color: C.text, fontSize: 11, formatter: (p: any) => fmt(p.value, 1) } }],
   });
   $("shap-text").textContent = `LightGBM (depth-limited, 200 trees) on the same features; leave-one-year-out R² = ${fmt(g.loyo_r2, 2)}. With 20 points this ranks drivers, it does not forecast.`;
   const yr = ols.coef.year, yp = ols.p.year;
-  $("drivers-note").innerHTML = `<b>Reading this carefully:</b> the time-trend coefficient is ${signed(yr, 2)} km² of open water per year after accounting for rainfall (p = ${pval(yp)}). ` +
+  $("drivers-note").innerHTML = `<b>Interpretation.</b> the time-trend coefficient is ${signed(yr, 2)} km² of open water per year after accounting for rainfall (p = ${pval(yp)}). ` +
     `A residual trend is consistent with growing upstream water capture, but it is not proof: no dam-release or storage series was available to test it directly.`;
 }
 
@@ -374,15 +386,15 @@ function forty(site: Site) {
       tooltip: tooltip({ trigger: "axis", valueFormatter: (v: number) => `${fmt(v, 1)} km²` }),
       legend: legend({ top: 0 }),
       grid: { left: 52, right: 20, top: 40, bottom: 40 },
-      xAxis: { type: "value", min: 1982, max: 2027, ...axis({ axisLabel: { color: C.muted, formatter: (v: number) => String(v) } }) },
+      xAxis: { type: "value", min: 1982, max: 2027, ...axis({ axisLabel: { color: C.ink2, fontSize: 11, formatter: (v: number) => String(v) } }) },
       yAxis: { type: "value", name: "lake water km²", scale: true, ...axis() },
       series: [
-        { name: "Landsat 5/7/8 (TOA MNDWI)", type: "line", data: ls, symbol: "circle", symbolSize: 6, lineStyle: { color: "#9fb4bb", width: 1.5 }, itemStyle: { color: "#9fb4bb" },
-          markArea: { silent: true, itemStyle: { color: "rgba(239,122,106,0.10)" }, label: { color: C.danger, fontSize: 11 },
+        { name: "Landsat 5/7/8 (TOA MNDWI)", type: "line", data: ls, symbol: "emptyCircle", symbolSize: 6, lineStyle: { color: C.grey, width: 1.5, type: "dashed" }, itemStyle: { color: C.grey },
+          markArea: { silent: true, itemStyle: { color: "rgba(154,51,36,0.08)" }, label: { color: C.danger, fontSize: 11 },
             data: [[{ name: "World Heritage in Danger", xAxis: 1996 }, { xAxis: 2006 }]] },
           markLine: { symbol: "none", silent: true, lineStyle: { color: C.faint, type: "dotted" }, label: { color: C.muted, fontSize: 10, formatter: "{b}" },
             data: ev.map((e) => ({ name: e.t, xAxis: e.x })) } },
-        { name: "Sentinel-2 habitat maps", type: "line", data: s2, symbol: "circle", symbolSize: 7, lineStyle: { color: C.accent, width: 2.5 }, itemStyle: { color: C.accent } },
+        { name: "Sentinel-2 habitat maps", type: "line", data: s2, symbol: "circle", symbolSize: 7, lineStyle: { color: C.water, width: 2.5 }, itemStyle: { color: C.water } },
       ],
     });
     const t = (site as any).landsat_trend[s];
@@ -398,7 +410,7 @@ function forty(site: Site) {
     xAxis: { type: "category", data: sv.series.map((r) => String(r.year)), ...axis() },
     yAxis: [{ type: "value", name: "km²", ...axis() }, { type: "value", name: "% of lake", max: 100, ...axis({ splitLine: { show: false } }) }],
     series: [
-      { name: "Submerged vegetation", type: "bar", barWidth: "55%", data: sv.series.map((r) => +r.sav_km2.toFixed(2)), itemStyle: { color: "#41ab5d", borderRadius: [4, 4, 0, 0] } },
+      { name: "Submerged vegetation", type: "bar", barWidth: "55%", data: sv.series.map((r) => +r.sav_km2.toFixed(2)), itemStyle: { color: "#3C8D5A" } },
       { name: "Share of lake", type: "line", yAxisIndex: 1, data: sv.series.map((r) => +(r.sav_share * 100).toFixed(1)), itemStyle: { color: C.text }, lineStyle: { color: C.text, width: 1.5 } },
     ],
   });
@@ -411,7 +423,7 @@ function forty(site: Site) {
     xAxis: { type: "value", name: "Landsat km²", nameLocation: "middle", nameGap: 26, min: 0, max: Math.ceil(mx), ...axis() },
     yAxis: { type: "value", name: "Sentinel-2 km²", min: 0, max: Math.ceil(mx), ...axis() },
     series: [
-      { type: "scatter", symbolSize: 10, data: ov.pairs.map((p: any) => [p.landsat, p.s2, `${p.year} ${p.season}`]), itemStyle: { color: C.accent } },
+      { type: "scatter", symbolSize: 10, data: ov.pairs.map((p: any) => [p.landsat, p.s2, `${p.year} ${p.season}`]), itemStyle: { color: C.water, borderColor: C.paper, borderWidth: 1 } },
       { type: "line", symbol: "none", silent: true, data: [[0, 0], [mx, mx]], lineStyle: { color: C.faint, type: "dashed" } },
     ],
   });
@@ -429,7 +441,8 @@ function lab(site: Site) {
     const rows = fr.map((f) => M.curves.find((r) => r.model === m && r.fraction === f));
     if (rows.filter(Boolean).length < 2) continue;
     const col = MODEL_COLOR[m] ?? C.text;
-    series.push({ name: MODEL_LABEL[m] ?? m, type: "line", symbol: "circle", symbolSize: 7, lineStyle: { color: col, width: 2.5 }, itemStyle: { color: col },
+    series.push({ name: MODEL_LABEL[m] ?? m, type: "line", symbol: MODEL_SYMBOL[m] ?? "circle", symbolSize: 9,
+      lineStyle: { color: col, width: 2.2, type: MODEL_DASH[m] ?? "solid" }, itemStyle: { color: col },
       data: rows.map((r, i) => (r ? [FR_LABELS[i], +r.miou_mean.toFixed(4), r.miou_std] : null)).filter(Boolean) });
     series.push({ name: MODEL_LABEL[m] ?? m, type: "custom", silent: true, z: 1, data: rows.map((r, i) => (r ? [i, r.miou_mean - r.miou_std, r.miou_mean + r.miou_std] : null)).filter(Boolean),
       renderItem: (_: any, api: any) => {
@@ -461,25 +474,32 @@ function lab(site: Site) {
     grid: { left: 150, right: 16, top: 50, bottom: 30 },
     xAxis: { type: "value", max: 1, ...axis() },
     yAxis: { type: "category", inverse: true, data: site.classes.map((c) => c.name), ...axis({ splitLine: { show: false } }) },
-    series: full.map((r) => ({ name: r.label, type: "bar", barGap: "10%", barCategoryGap: "30%", itemStyle: { color: MODEL_COLOR[r.model], borderRadius: 2 }, data: r.per_class_f1 })),
+    series: full.map((r, k) => ({ name: r.label, type: "bar", barGap: "10%", barCategoryGap: "30%",
+      itemStyle: { color: MODEL_COLOR[r.model], ...(k === 1 ? { decal: HATCH } : {}) }, data: r.per_class_f1 })),
   });
   const cm = M.confusion;
   $("cm-model").textContent = MODEL_LABEL[M.confusion_model] ?? M.confusion_model;
   const data: [number, number, number][] = [];
-  cm.forEach((row, i) => { const s = row.reduce((a, b) => a + b, 0) || 1; row.forEach((v, j) => data.push([j, i, +(100 * v / s).toFixed(1)])); });
+  const cells: any[] = [];
+  cm.forEach((row, i) => { const s = row.reduce((a, b) => a + b, 0) || 1; row.forEach((v, j) => {
+    const pct = +(100 * v / s).toFixed(1);
+    data.push([j, i, pct]);
+    cells.push({ value: [j, i, pct], label: { color: pct > 55 ? C.paper : C.text } }); // keep 4.5:1 on dark cells
+  }); });
   const short = ["Perm. water", "Seas. water", "Fresh marsh", "Halo. marsh", "Saline flat", "Crop/grass", "Shrub/wood", "Built"];
   chart("cm-chart").render({
     tooltip: tooltip({ formatter: (p: any) => `reference <b>${short[p.value[1]]}</b><br/>predicted <b>${short[p.value[0]]}</b><br/>${p.value[2]} % of row` }),
     grid: { left: 90, right: 16, top: 10, bottom: 70 },
-    xAxis: { type: "category", data: short, name: "predicted", nameLocation: "middle", nameGap: 54, ...axis({ axisLabel: { color: C.muted, rotate: 40, fontSize: 10 } }) },
-    yAxis: { type: "category", data: short, inverse: true, name: "", ...axis({ axisLabel: { color: C.muted, fontSize: 10 } }) },
-    visualMap: { show: false, min: 0, max: 100, inRange: { color: ["#0b171c", "#13474a", "#2bb3a3", "#c8f5ec"] } },
-    series: [{ type: "heatmap", data, label: { show: true, color: C.text, fontSize: 10, formatter: (p: any) => (p.value[2] >= 1 ? p.value[2].toFixed(0) : "") },
-      itemStyle: { borderColor: "#071014", borderWidth: 1 } }],
+    xAxis: { type: "category", data: short, name: "predicted", nameLocation: "middle", nameGap: 54, ...axis({ axisLabel: { color: C.ink2, rotate: 40, fontSize: 10 }, splitLine: { show: false } }) },
+    yAxis: { type: "category", data: short, inverse: true, name: "", ...axis({ axisLabel: { color: C.ink2, fontSize: 10 }, splitLine: { show: false } }) },
+    visualMap: { show: false, min: 0, max: 100, inRange: { color: ["#FBF9F4", "#DCE7D6", "#7FA889", "#166534"] } },
+    series: [{ type: "heatmap", data: cells, label: { show: true, fontSize: 10, fontFamily: "IBM Plex Mono, monospace",
+      formatter: (p: any) => (p.value[2] >= 1 ? p.value[2].toFixed(0) : "") },
+      itemStyle: { borderColor: C.paper, borderWidth: 2 } }],
   });
   // chip comparison
   const sel = $<HTMLSelectElement>("chip-select");
-  sel.innerHTML = site.chips.map((c, i) => `<option value="${i}">Test location ${c.id.replace("_", " ")} · ${c.year} ${c.season}</option>`).join("");
+  sel.innerHTML = site.chips.map((c, i) => `<option value="${i}">Location ${c.id.replace("_", " ")}, ${c.year} ${c.season} season</option>`).join("");
   const drawChip = async () => {
     const c = site.chips[Number(sel.value)];
     const cells: [string, string][] = [["Sentinel-2", c.s2], ["Weak labels (white = unlabeled)", c.label],
@@ -488,10 +508,10 @@ function lab(site: Site) {
     cells.forEach(async ([, u], i) => {
       const im = new Image(); im.src = dataUrl(u); await im.decode();
       const ctx = ($(`chip-${i}`) as HTMLCanvasElement).getContext("2d")!;
-      ctx.fillStyle = i === 1 ? "#f3f6f7" : "#0a1418"; ctx.fillRect(0, 0, 224, 224);
+      ctx.fillStyle = i === 1 ? "#FBF9F4" : "#E4DDCD"; ctx.fillRect(0, 0, 224, 224);
       ctx.drawImage(im, 0, 0, 224, 224);
     });
-    $("chip-caption").textContent = "Same 2.24 km test chip, never seen in training.";
+    $("chip-caption").textContent = "The same 2.24 km test chip, never seen in training: Sentinel-2 composite, weak reference labels (white = unlabelled) and each model's prediction.";
   };
   sel.addEventListener("change", drawChip);
   if (site.chips.length) drawChip();
@@ -500,12 +520,13 @@ function lab(site: Site) {
 // ------------------------------------------------------------------ method, footer
 function method(site: Site) {
   $("rules-table").innerHTML = `<tr><th>Class</th><th>Rule (all conditions)</th></tr>` +
-    site.rules.map((r, i) => `<tr><td style="white-space:nowrap"><span class="sw" style="display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;background:${site.classes[i].color}"></span>${r.cls}</td><td class="muted small">${r.rule}</td></tr>`).join("");
+    site.rules.map((r, i) => `<tr><td style="white-space:nowrap"><span style="display:inline-block;width:11px;height:11px;margin-right:8px;vertical-align:-1px;background:${site.classes[i].color};box-shadow:inset 0 0 0 1px rgba(22,36,31,.2)"></span>${r.cls}</td><td class="muted">${r.rule}</td></tr>`).join("");
   $("data-table").innerHTML = `<tr><th>Dataset</th><th>Use</th><th>Licence</th></tr>` +
-    site.data_sources.map((d) => `<tr><td>${d.name}</td><td class="muted small">${d.use}</td><td class="muted small">${d.licence}</td></tr>`).join("");
+    site.data_sources.map((d) => `<tr><td>${d.name}</td><td class="muted">${d.use}</td><td class="muted">${d.licence}</td></tr>`).join("");
   $("limits-list").innerHTML = site.limitations.map((l) => `<li>${l}</li>`).join("");
-  $("credits").innerHTML = `<b style="color:var(--text)">Credits</b><br/>Contains modified Copernicus Sentinel data 2017–2026 (ESA). ESA WorldCover (CC BY 4.0), JRC Global Surface Water, Copernicus DEM, AlphaEarth Foundations embeddings (Google, CC BY 4.0), PERSIANN-CDR (NOAA), Landsat (USGS). Basemap imagery © Esri and partners, labels © OpenStreetMap contributors, © CARTO. Results generated ${site.meta.generated}.`;
-  $("sources").innerHTML = `<b style="color:var(--text)">Sources</b><ul class="clean">${site.sources.map((s) => `<li><a href="${s.url}" rel="noopener">${s.name}</a></li>`).join("")}</ul>`;
+  $("credits").innerHTML = `Contains modified Copernicus Sentinel data 2017–2026 (ESA). ESA WorldCover (CC BY 4.0), JRC Global Surface Water, Copernicus DEM, AlphaEarth Foundations embeddings (Google, CC BY 4.0), PERSIANN-CDR (NOAA), Landsat (USGS). Basemap imagery © Esri and partners, labels © OpenStreetMap contributors, © CARTO. Results generated ${site.meta.generated}.`;
+  $("sources").innerHTML = `<ul>${site.sources.map((s) => `<li><a href="${s.url}" rel="noopener">${s.name}</a></li>`).join("")}</ul>`;
+  $("cite").textContent = `Saada, E. (${site.meta.generated.slice(0, 4)}). Seasonal wetland habitat change at Ichkeul National Park, 2017–2026: Sentinel-2 mapping, rainfall attribution and a 40-year Landsat record. https://github.com/emna-saada/ichkeul-habitat-time-machine`;
 }
 
 function chrome() {
@@ -513,10 +534,12 @@ function chrome() {
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
   const links = [...document.querySelectorAll<HTMLAnchorElement>(".nav .links a")];
   const secs = links.map((a) => document.querySelector(a.getAttribute("href")!)!);
+  const bar = $("progress");
   addEventListener("scroll", () => {
-    const y = scrollY + 120;
+    const h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = `${h > 0 ? (100 * scrollY) / h : 0}%`;
     let k = -1;
-    secs.forEach((s, i) => { if ((s as HTMLElement).offsetTop <= y) k = i; });
+    secs.forEach((s, i) => { if (s.getBoundingClientRect().top <= 140) k = i; });
     links.forEach((a, i) => a.classList.toggle("active", i === k));
   }, { passive: true });
 }
@@ -536,5 +559,5 @@ async function main() {
 }
 main().catch((e) => {
   console.error(e);
-  document.body.insertAdjacentHTML("afterbegin", `<p style="padding:90px 20px;color:#ef7a6a">Could not load results: ${e}</p>`);
+  document.body.insertAdjacentHTML("afterbegin", `<p role="alert" style="padding:90px 20px;color:#9A3324">Could not load results: ${e}</p>`);
 });

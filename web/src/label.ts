@@ -1,5 +1,7 @@
-import "@fontsource-variable/inter";
-import "@fontsource-variable/fraunces";
+import "@fontsource-variable/crimson-pro";
+import "@fontsource-variable/atkinson-hyperlegible-next";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
 import "./style.css";
 import { dataUrl, loadSite, type Site } from "./data";
 
@@ -40,13 +42,13 @@ async function main() {
     for (const [u, id] of views) {
       const cv = document.getElementById(id) as HTMLCanvasElement;
       const ctx = cv.getContext("2d")!;
-      ctx.fillStyle = "#0a1418"; ctx.fillRect(0, 0, 64, 64);
+      ctx.fillStyle = "#E4DDCD"; ctx.fillRect(0, 0, 64, 64);
       try {
         const im = await img(u);
         ctx.imageSmoothingEnabled = false;
         ctx.drawImage(im, p.col - HALF, p.row - HALF, 64, 64, 0, 0, 64, 64);
       } catch { /* false-colour image only exists for sampled years */ }
-      ctx.strokeStyle = "#ff3b3b"; ctx.lineWidth = 1;
+      ctx.strokeStyle = "#E11D48"; ctx.lineWidth = 1;
       ctx.strokeRect(HALF - 1.5, HALF - 1.5, 3, 3);
     }
     const done = Object.keys(labels).length;

@@ -51,9 +51,18 @@ export const MODEL_LABEL: Record<string, string> = {
   prithvi_mt: "Prithvi-EO-2.0 · 3 dates",
   terramind: "TerraMind-1.0-base",
 };
+/** Colour + marker + line style per model, so curves stay distinguishable without colour. */
 export const MODEL_COLOR: Record<string, string> = {
-  rf_indices: "#f2b84b", rf_alphaearth: "#c792ea", unet: "#ef7a6a", unet_cpu: "#d98b7c", prithvi: "#4fd8c4",
-  prithvi_frozen: "#2a8f80", prithvi_mt: "#9be7da", terramind: "#56b4e9",
+  rf_indices: "#8A5A06", rf_alphaearth: "#6B4C9A", unet: "#9A3324", unet_cpu: "#9A3324", prithvi: "#166534",
+  prithvi_frozen: "#4F7F5B", prithvi_mt: "#2F6F8F", terramind: "#1D4E89",
+};
+export const MODEL_SYMBOL: Record<string, string> = {
+  rf_indices: "rect", rf_alphaearth: "diamond", unet: "triangle", unet_cpu: "triangle", prithvi: "circle",
+  prithvi_frozen: "emptyCircle", prithvi_mt: "roundRect", terramind: "pin",
+};
+export const MODEL_DASH: Record<string, string> = {
+  rf_indices: "dashed", rf_alphaearth: "dotted", unet: "solid", unet_cpu: "solid", prithvi: "solid",
+  prithvi_frozen: "dashed", prithvi_mt: "dotted", terramind: "solid",
 };
 
 export const dataUrl = (p: string) => new URL(import.meta.env.BASE_URL + "data/" + p, location.href).href;

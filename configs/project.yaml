@@ -22,13 +22,13 @@ seasons:
   wet: [1, 2, 3]
   dry: [7, 8, 9]
 classes:
-  - {id: 0, key: perm_water,   name: Permanent open water,          color: "#1f4e9c"}
-  - {id: 1, key: seas_water,   name: Seasonal shallow water,        color: "#56b4e9"}
-  - {id: 2, key: fresh_marsh,  name: Freshwater emergent marsh,     color: "#009e73"}
-  - {id: 3, key: halo_marsh,   name: Halophytic marsh,              color: "#cc79a7"}
-  - {id: 4, key: saline_flat,  name: Bare saline flat / mudflat,    color: "#e6d3a3"}
-  - {id: 5, key: crop_grass,   name: Cropland & grassland,          color: "#b9a94a"}
-  - {id: 6, key: shrub_wood,   name: Shrub & woodland,              color: "#2d6a2e"}
-  - {id: 7, key: built,        name: Built & roads,                 color: "#d55e00"}
+  - {id: 0, key: perm_water,   name: Permanent open water,          color: "#1D4E89"}
+  - {id: 1, key: seas_water,   name: Seasonal shallow water,        color: "#7FB3D5"}
+  - {id: 2, key: fresh_marsh,  name: Freshwater emergent marsh,     color: "#3C8D5A"}
+  - {id: 3, key: halo_marsh,   name: Halophytic marsh,              color: "#B5523B"}
+  - {id: 4, key: saline_flat,  name: Bare saline flat / mudflat,    color: "#E6D5A8"}
+  - {id: 5, key: crop_grass,   name: Cropland & grassland,          color: "#B9B46C"}
+  - {id: 6, key: shrub_wood,   name: Shrub & woodland,              color: "#1F4A2C"}
+  - {id: 7, key: built,        name: Built & roads,                 color: "#5E5A57"}
 ignore_index: -1
 split: {block_m: 1120, train: 0.70, val: 0.15, test: 0.15, seed: 42}

@@ -6,7 +6,7 @@ import { dataUrl, type Site } from "./data";
 // MapLibre 6 loads its worker as a module (copied to <base>/maplibre/ by vite.config.ts)
 setWorkerUrl(new URL(import.meta.env.BASE_URL + "maplibre/maplibre-gl-worker.mjs", location.href).href);
 
-export function baseStyle(dim = 0.55): StyleSpecification {
+export function baseStyle(dim = 0.9): StyleSpecification {
   return {
     version: 8,
     sources: {
@@ -22,9 +22,9 @@ export function baseStyle(dim = 0.55): StyleSpecification {
       },
     },
     layers: [
-      { id: "bg", type: "background", paint: { "background-color": "#0a1418" } },
+      { id: "bg", type: "background", paint: { "background-color": "#E4DDCD" } },
       { id: "imagery", type: "raster", source: "imagery",
-        paint: { "raster-brightness-max": dim, "raster-saturation": -0.35, "raster-contrast": 0.05 } },
+        paint: { "raster-brightness-max": dim, "raster-saturation": -0.45, "raster-contrast": -0.05 } },
     ],
   };
 }
@@ -71,7 +71,7 @@ export function addBasin(map: MLMap, site: Site, color = "#ffffff") {
   if (map.getSource("basin")) return;
   map.addSource("basin", { type: "geojson", data: site.basin as any });
   map.addLayer({ id: "basin", type: "line", source: "basin",
-    paint: { "line-color": color, "line-width": 1.2, "line-opacity": 0.55, "line-dasharray": [3, 2] } });
+    paint: { "line-color": color, "line-width": 1.3, "line-opacity": 0.85, "line-dasharray": [3, 2] } });
 }
 
 const cache = new Set<string>();
@@ -105,6 +105,11 @@ export class Swipe {
     handle.addEventListener("pointerdown", (e) => { drag = true; handle.setPointerCapture(e.pointerId); });
     handle.addEventListener("pointermove", (e) => drag && move(e.clientX));
     handle.addEventListener("pointerup", () => (drag = false));
+    handle.addEventListener("keydown", (e) => {
+      const step = e.shiftKey ? 0.1 : 0.03;
+      const k: Record<string, number> = { ArrowLeft: this.pos - step, ArrowRight: this.pos + step, Home: 0.02, End: 0.98 };
+      if (e.key in k) { e.preventDefault(); this.set(Math.min(0.98, Math.max(0.02, k[e.key]))); }
+    });
     new ResizeObserver(() => this.set(this.pos)).observe(box);
     this.set(0.5);
   }
@@ -113,5 +118,6 @@ export class Swipe {
     const w = this.box.clientWidth;
     this.handle.style.left = `${p * w}px`;
     (this.b.getContainer() as HTMLElement).style.clipPath = `inset(0 0 0 ${p * w}px)`;
+    this.handle.setAttribute("aria-valuenow", String(Math.round(p * 100)));
   }
 }
